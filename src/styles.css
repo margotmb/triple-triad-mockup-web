@@ -101,11 +101,11 @@ body {
   
 }
 .tt-card:hover {
-  background-color: red;
+  background-color: #713231;
 }
 
 .card-red{
-  background-color:red;
+  background-color:#713231;
   position: relative;
   margin:5px;
   width:100px;
@@ -120,7 +120,7 @@ body {
   
 }
 .card-blue{
-  background-color:blue;
+  background-color:#3B5D7A;
   position: relative;
   margin:5px;
   width:100px;
@@ -194,11 +194,4 @@ body {
 .status {
   margin-bottom: 10px;
 }
-.game {
-  display: flex;
-  flex-direction: row;
-}
 
-.game-info {
-  margin-left: 20px;
-}
