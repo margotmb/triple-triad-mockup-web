@@ -1,0 +1,56 @@
+[
+{
+  "card_id": "006",
+  "name": "Bomb",
+  "values": [
+    3,
+    4,
+    3,
+    3
+  ],
+  "file_name": "006Bomb_3433.png"
+},
+{
+  "card_id": "007",
+  "name": "Mandragora",
+  "values": [
+    4,
+    2,
+    5,
+    3
+  ],
+  "file_name": "007Mandragora_4253.png"
+},
+{
+  "card_id": "008",
+  "name": "Coblyn",
+  "values": [
+    3,
+    3,
+    3,
+    4
+  ],
+  "file_name": "008Coblyn_3334.png"
+},
+{
+  "card_id": "009",
+  "name": "Morbol",
+  "values": [
+    5,
+    2,
+    2,
+    5
+  ],
+  "file_name": "009Morbol_5225.png"
+},
+{
+  "card_id": "010",
+  "name": "Coeurl",
+  "values": [
+    2,
+    5,
+    2,
+    5
+  ],
+  "file_name": "010Coeurl_2525.png"
+}]
