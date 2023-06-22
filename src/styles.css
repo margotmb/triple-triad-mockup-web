@@ -54,7 +54,7 @@ body {
   font-family: sans-serif;
   margin: 20px;
   padding: 0;
-  background:url(../src/images/img.png)
+  background:url(https://i.imgur.com/W93TBJq.png)
 }
 .game{
   background-color: #7A5687;
@@ -76,6 +76,15 @@ body {
   justify-content: center;
   
 }
+.enemy-hand{
+  border: 1px solid pink;
+  width:400px;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content: center;
+}
+
 .tt-card{
   background-color: #999;
   position: relative;
@@ -94,6 +103,7 @@ body {
 .tt-card:hover {
   background-color: red;
 }
+
 .card-red{
   background-color:red;
   position: relative;
@@ -151,8 +161,8 @@ body {
   top: 40%;
   left: 12%;
 }
-.enemy-hand{
-
+.tt-card-cover{
+  position: absolute;
 }
 .board{
   display:flex;
