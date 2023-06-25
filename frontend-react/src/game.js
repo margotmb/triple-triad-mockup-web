@@ -55,6 +55,7 @@ function Card({carta, onCardClick, cardColor = "tt-card", enemyCard = false, han
     else if(handCard){
         return(
           <div className={cardColor} style={{ backgroundColor: isActive ? "#713231" : "transparent" }} onClick={onCardClick}>
+            <span className="tooltiptext">{carta.name}</span>
             <img src={carta.file_link}></img>
             <div className="up_value">{carta.values[0]}</div>
             <div className="right-value">{carta.values[1]}</div>
@@ -66,6 +67,7 @@ function Card({carta, onCardClick, cardColor = "tt-card", enemyCard = false, han
     else{
       return(
         <div className={cardColor} onClick={onCardClick}>
+          <span className="tooltiptext">{carta.name}</span>
           <img src={carta.file_link}></img>
           <div className="up_value">{carta.values[0]}</div>
           <div className="right-value">{carta.values[1]}</div>
@@ -176,6 +178,7 @@ export default function Board() {
           };
           abrirModal();
         }
+        carta_selecionada = null;
         //Gatilha o bot para ele fazer sua jogada
         setTimeout(botPlays, 500, nextSquares, nextCardColor);
 
@@ -414,20 +417,21 @@ export default function Board() {
             aria-labelledby="contained-modal-title-vcenter"
             centered
           >
-            <Modal.Header closeButton onClick={() => fecharModal()}>
-                <Modal.Title>
-                    <p>{matchResult} wins!</p>
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <p>
-                    --PLACEHOLDER REWARD--
-                </p>
-                <img src=""></img>
-                <div className="d-grid gap-2">
-                  <Button variant="success" href="/home">OK</Button>
-                </div>
-            </Modal.Body>
+            
+              <Modal.Header >
+                  <Modal.Title>
+                      <p>{matchResult} wins!</p>
+                  </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                  <p>
+                      --PLACEHOLDER REWARD--
+                  </p>
+                  <img src=""></img>
+                  <div className="d-grid gap-2">
+                    <Button variant="success" href="/home">OK</Button>
+                  </div>
+              </Modal.Body>
           </Modal>
         </div>
       </React.Fragment>
