@@ -112,7 +112,8 @@ body {
   
 }
 .tt-card:hover {
-  background-color: #713231;
+  
+  box-shadow: inset 5em 1em #713231;
 }
 
 .card-red{

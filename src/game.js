@@ -6,7 +6,36 @@ import {Modal, Button} from 'react-bootstrap';
 
 var count = 0;
 var jogadas = 0;
+var carta_selecionada = null;
+var indice_carta_selecionada = null;
+//
 
+function PlayerHandComponent({playerHand}){
+  const [active, setActive] = useState(Array(5).fill(false));
+  function handleCardClick(j, card){
+    const nextActive = active.slice()
+    if (indice_carta_selecionada != null){
+      nextActive[indice_carta_selecionada] = !nextActive[indice_carta_selecionada];
+    }
+
+    carta_selecionada = card;
+    indice_carta_selecionada = j;
+    
+    nextActive[indice_carta_selecionada] = !nextActive[indice_carta_selecionada];
+    setActive(nextActive)
+    
+  }
+
+  return(
+    <React.Fragment>
+      <Card carta={playerHand[0]}  onCardClick={() => handleCardClick(0, playerHand[0])} handCard={true} isActive={active[0]}/>
+      <Card carta={playerHand[1]}  onCardClick={() => handleCardClick(1, playerHand[1])} handCard={true} isActive={active[1]}/>
+      <Card carta={playerHand[2]}  onCardClick={() => handleCardClick(2, playerHand[2])} handCard={true} isActive={active[2]}/>
+      <Card carta={playerHand[3]}  onCardClick={() => handleCardClick(3, playerHand[3])} handCard={true} isActive={active[3]}/>
+      <Card carta={playerHand[4]}  onCardClick={() => handleCardClick(4, playerHand[4])} handCard={true} isActive={active[4]}/>
+    </React.Fragment>
+  )
+}
 //Componente Square -> Forma o tabuleiro, renderiza uma carta ou um espaço vazio
 function Square({value, onSquareClick, cardColor}) {
   return (
@@ -14,7 +43,7 @@ function Square({value, onSquareClick, cardColor}) {
   );
 }
 //Componente Card -> Carta do jogo
-function Card({carta, onCardClick, cardColor = "tt-card", enemyCard = false}){
+function Card({carta, onCardClick, cardColor = "tt-card", enemyCard = false, handCard = false, isActive}){
   if (carta!=null){
     if (enemyCard){
       return(
@@ -22,7 +51,19 @@ function Card({carta, onCardClick, cardColor = "tt-card", enemyCard = false}){
           <img src="https://i.imgur.com/7Scmweb.png"></img>  
         </div>
       )
-    }else{
+    }
+    else if(handCard){
+        return(
+          <div className={cardColor} style={{ backgroundColor: isActive ? "#713231" : "transparent" }} onClick={onCardClick}>
+            <img src={carta.file_link}></img>
+            <div className="up_value">{carta.values[0]}</div>
+            <div className="right-value">{carta.values[1]}</div>
+            <div className="bottom-value">{carta.values[2]}</div>
+            <div className="left-value">{carta.values[3]}</div>
+          </div>
+        )
+    }
+    else{
       return(
         <div className={cardColor} onClick={onCardClick}>
           <img src={carta.file_link}></img>
@@ -89,16 +130,14 @@ export default function Board() {
   const [cardColor, setCardColor] = useState(Array(9).fill("tt-card"));
   
   // Variáveis de seleção de carta
-  let carta_selecionada = null;
-  let indice_carta_selecionada = 0;
+  
+  
+
   // if bot começar -> setTimeout(botPlays, 500, squares, cardColor); 
   
   
   // Responsável por determinar a carta a ser jogada pelo jogador
-  function handleCardClick(j, card){
-    carta_selecionada = card;
-    indice_carta_selecionada = j;
-  }
+
 
   //Seta uma carta em um quadrado
   function handleClick(i, j, new_value) {
@@ -336,11 +375,7 @@ export default function Board() {
       <React.Fragment>
         <div className="game">
           <div className="player-hand">
-            <Card carta={playerHand[0]}  onCardClick={() => handleCardClick(0, playerHand[0])}/>
-            <Card carta={playerHand[1]}  onCardClick={() => handleCardClick(1, playerHand[1])}/>
-            <Card carta={playerHand[2]}  onCardClick={() => handleCardClick(2, playerHand[2])}/>
-            <Card carta={playerHand[3]}  onCardClick={() => handleCardClick(3, playerHand[3])}/>
-            <Card carta={playerHand[4]}  onCardClick={() => handleCardClick(4, playerHand[4])}/>
+            <PlayerHandComponent playerHand={playerHand}/>
           </div>
 
           <div className="board">
@@ -390,7 +425,7 @@ export default function Board() {
                 </p>
                 <img src=""></img>
                 <div className="d-grid gap-2">
-                  <Button variant="success" href="/">OK</Button>
+                  <Button variant="success" href="/home">OK</Button>
                 </div>
             </Modal.Body>
           </Modal>
