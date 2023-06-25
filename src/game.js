@@ -1,10 +1,10 @@
 import React from "react";
-import { useState } from 'react';
-import player_data from "../src/resources/player_hand.json"
-import enemy_data from "../src/resources/enemy_hand.json"
+import { useState} from 'react';
+//import player_data from "../src/resources/player_hand.json"
+//import enemy_data from "../src/resources/enemy_hand.json"
+import {Modal, Button} from 'react-bootstrap';
 
 var count = 0;
-//var endPoint = 4;
 var jogadas = 0;
 
 //Componente Square -> Forma o tabuleiro, renderiza uma carta ou um espaço vazio
@@ -13,10 +13,8 @@ function Square({value, onSquareClick, cardColor}) {
       <button className="square" onClick={onSquareClick}><Card carta={value} cardColor={cardColor}/></button>
   );
 }
-
 //Componente Card -> Carta do jogo
 function Card({carta, onCardClick, cardColor = "tt-card", enemyCard = false}){
-
   if (carta!=null){
     if (enemyCard){
       return(
@@ -40,18 +38,62 @@ function Card({carta, onCardClick, cardColor = "tt-card", enemyCard = false}){
 }
 
 export default function Board() {
+
+  const [playerHand, setPlayerHand] = useState([]);
+  const [enemyHand, setEnemyHand] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [matchResult, setMatchResult] = useState(null);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  
+  // MODAL TELA DE VITÓRIA
+  function abrirModal() {
+    setIsOpen(true);
+  }
+  function fecharModal() {
+    setIsOpen(false);
+  }
+
+  //requests da API pra começar o jogo
+  function game_start(){
+    
+    fetch('http://localhost:5000/api/cards', {
+    method: "GET",
+    headers: {
+      "Accept": "application/json"
+    }
+    })
+    .then(response => response.json())
+    .then(json => json.data)
+    .then(json => {
+      setPlayerHand(json);
+    })
+    .catch(error => console.error(error));
+
+    fetch('http://localhost:5000/api/users/testemail@testemail.com', {
+      method: "GET",
+      headers: {
+        "Accept": "application/json"
+      }
+      })
+      .then(response => response.json())
+      .then(json => json.data)
+      .then(json => {
+        setEnemyHand(json.cards)
+        setLoading(false);
+      })
+      .catch(error => console.error(error));
+  }
+
   //Define que o componente pai (board) vai guardar os valores dos squares em um array, inicializando com NULL
   const [squares, setSquares] = useState(Array(9).fill(null));
-
-  const [playerHand, setPlayerHand] = useState([player_data[0], player_data[1], player_data[2], player_data[3], player_data[4]]);
-  
-  const [enemyHand, setEnemyHand] = useState([enemy_data[0], enemy_data[1], enemy_data[2], enemy_data[3], enemy_data[4]]);
   const [cardColor, setCardColor] = useState(Array(9).fill("tt-card"));
   
+  // Variáveis de seleção de carta
   let carta_selecionada = null;
   let indice_carta_selecionada = 0;
   // if bot começar -> setTimeout(botPlays, 500, squares, cardColor); 
-
+  
+  
   // Responsável por determinar a carta a ser jogada pelo jogador
   function handleCardClick(j, card){
     carta_selecionada = card;
@@ -84,7 +126,16 @@ export default function Board() {
         // Verifica as posições do tabuleiro pra executar as capturas:
         verify_board(i, nextSquares, nextCardColor, "card-red");
         if (jogadas >= 9){
-          console.log(nextCardColor);
+          
+          let result = check_winner(nextCardColor);
+          console.log(result);
+          if (result){
+            setMatchResult("RED")
+          }
+          else{
+            setMatchResult("BLUE")
+          };
+          abrirModal();
         }
         //Gatilha o bot para ele fazer sua jogada
         setTimeout(botPlays, 500, nextSquares, nextCardColor);
@@ -123,8 +174,18 @@ export default function Board() {
       setCardColor(nextCardColor);
       jogadas++;
       console.log(jogadas);
+      
+      // se acabaram as jogadas -> verifica vencedor
       if (jogadas >= 9){
-        console.log(nextCardColor);
+        let result = check_winner(nextCardColor);
+        console.log(result);
+        if (result){
+          console.log("RED WINS");
+          
+        }
+        else{
+          console.log("BLUE WINS");
+        };
       }
       // Verifica as posições do tabuleiro pra executar as capturas:
       verify_board(randNum, nextSquares, nextCardColor, "card-blue");
@@ -229,6 +290,8 @@ export default function Board() {
         // Esquerda
         check_sides(current_squares, current_colors, cardColor, 8, 3, 7, 1);
         break;
+      default:
+        break;
     }
   }
   
@@ -244,43 +307,95 @@ export default function Board() {
 
   }
 
+  function check_winner(cardColor){
+    let blue = 0;
+    let red = 0;
+    for (let i = 0; i < cardColor.length; i++) {
+        if (cardColor[i] === "card-red"){
+          red++;
+        }
+        if (cardColor[i] === "card-blue"){
+          blue++;
+        }
+    }
+    return red > blue
+  }
 
-  return (
-    <React.Fragment>
-      <div className="game">
-        <div className="player-hand">
-          <Card carta={playerHand[0]}  onCardClick={() => handleCardClick(0, playerHand[0])}/>
-          <Card carta={playerHand[1]}  onCardClick={() => handleCardClick(1, playerHand[1])}/>
-          <Card carta={playerHand[2]}  onCardClick={() => handleCardClick(2, playerHand[2])}/>
-          <Card carta={playerHand[3]}  onCardClick={() => handleCardClick(3, playerHand[3])}/>
-          <Card carta={playerHand[4]}  onCardClick={() => handleCardClick(4, playerHand[4])}/>
+  if (isLoading) {
+    return(
+      <React.Fragment>
+        <div className="loadingscreen">
+          <h1>Match Ready!</h1>
+          <Button variant="dark" onClick={() => game_start()}>START</Button>
         </div>
+      </React.Fragment>
+    )
+  }
+  else{
+    return (
+      <React.Fragment>
+        <div className="game">
+          <div className="player-hand">
+            <Card carta={playerHand[0]}  onCardClick={() => handleCardClick(0, playerHand[0])}/>
+            <Card carta={playerHand[1]}  onCardClick={() => handleCardClick(1, playerHand[1])}/>
+            <Card carta={playerHand[2]}  onCardClick={() => handleCardClick(2, playerHand[2])}/>
+            <Card carta={playerHand[3]}  onCardClick={() => handleCardClick(3, playerHand[3])}/>
+            <Card carta={playerHand[4]}  onCardClick={() => handleCardClick(4, playerHand[4])}/>
+          </div>
 
-        <div className="board">
-          <div className="board-row">
-            <Square value={squares[0]} onSquareClick={() => handleClick(0, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[0]}/>
-            <Square value={squares[1]} onSquareClick={() => handleClick(1, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[1]}/>
-            <Square value={squares[2]} onSquareClick={() => handleClick(2, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[2]}/>
+          <div className="board">
+            <div className="board-row">
+              <Square value={squares[0]} onSquareClick={() => handleClick(0, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[0]}/>
+              <Square value={squares[1]} onSquareClick={() => handleClick(1, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[1]}/>
+              <Square value={squares[2]} onSquareClick={() => handleClick(2, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[2]}/>
+            </div>
+            <div className="board-row">
+              <Square value={squares[3]} onSquareClick={() => handleClick(3, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[3]}/>
+              <Square value={squares[4]} onSquareClick={() => handleClick(4, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[4]}/>
+              <Square value={squares[5]} onSquareClick={() => handleClick(5, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[5]}/>
+            </div>
+            <div className="board-row">
+              <Square value={squares[6]} onSquareClick={() => handleClick(6, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[6]}/>
+              <Square value={squares[7]} onSquareClick={() => handleClick(7, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[7]}/>
+              <Square value={squares[8]} onSquareClick={() => handleClick(8, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[8]}/>
+            </div>
           </div>
-          <div className="board-row">
-            <Square value={squares[3]} onSquareClick={() => handleClick(3, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[3]}/>
-            <Square value={squares[4]} onSquareClick={() => handleClick(4, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[4]}/>
-            <Square value={squares[5]} onSquareClick={() => handleClick(5, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[5]}/>
+          <div className="enemy-hand">
+            <Card carta={enemyHand[0]} enemyCard={true}/>
+            <Card carta={enemyHand[1]} enemyCard={true}/>
+            <Card carta={enemyHand[2]} enemyCard={true}/>
+            <Card carta={enemyHand[3]} enemyCard={true}/>
+            <Card carta={enemyHand[4]} enemyCard={true}/>
           </div>
-          <div className="board-row">
-            <Square value={squares[6]} onSquareClick={() => handleClick(6, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[6]}/>
-            <Square value={squares[7]} onSquareClick={() => handleClick(7, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[7]}/>
-            <Square value={squares[8]} onSquareClick={() => handleClick(8, indice_carta_selecionada, carta_selecionada)} cardColor={cardColor[8]}/>
-          </div>
+
+          <Modal 
+            show={modalIsOpen} 
+            //onHide={false}
+            animation={false} 
+            contentClassName="transparentBgClass"
+            //dialogClassName="modal-90w"
+            //aria-labelledby="example-custom-modal-styling-title"
+            size="sm"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header closeButton onClick={() => fecharModal()}>
+                <Modal.Title>
+                    <p>{matchResult} wins!</p>
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <p>
+                    --PLACEHOLDER REWARD--
+                </p>
+                <img src=""></img>
+                <div className="d-grid gap-2">
+                  <Button variant="success" href="/">OK</Button>
+                </div>
+            </Modal.Body>
+          </Modal>
         </div>
-        <div className="enemy-hand">
-          <Card carta={enemyHand[0]} enemyCard={true}/>
-          <Card carta={enemyHand[1]} enemyCard={true}/>
-          <Card carta={enemyHand[2]} enemyCard={true}/>
-          <Card carta={enemyHand[3]} enemyCard={true}/>
-          <Card carta={enemyHand[4]} enemyCard={true}/>
-        </div>
-      </div>
-    </React.Fragment>
-  );
+      </React.Fragment>
+    );
+  }
 };
