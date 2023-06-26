@@ -99,29 +99,27 @@ export default function Board() {
   //requests da API pra começar o jogo
   function game_start(){
     
-    fetch('http://localhost:5000/api/cards', {
+    fetch('/api/users/email/test2@testemail.com', {
     method: "GET",
     headers: {
       "Accept": "application/json"
     }
     })
     .then(response => response.json())
-    .then(json => json.data)
     .then(json => {
-      setPlayerHand(json);
+      setPlayerHand(json.deck);
     })
     .catch(error => console.error(error));
 
-    fetch('http://localhost:5000/api/users/testemail@testemail.com', {
+    fetch('/api/users/email/testemail@testemail.com', {
       method: "GET",
       headers: {
         "Accept": "application/json"
       }
       })
       .then(response => response.json())
-      .then(json => json.data)
       .then(json => {
-        setEnemyHand(json.cards)
+        setEnemyHand(json.deck)
         setLoading(false);
       })
       .catch(error => console.error(error));

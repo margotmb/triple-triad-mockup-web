@@ -2,9 +2,7 @@ const express = require("express");
 const cors = require('cors');
 const app = express();
 
-// routes
-const cards = require('./routes/api/cards');
-app.use('/api/cards', cards);
+
 
 //ConnectDB
 const mongoose = require("mongoose");
@@ -28,8 +26,13 @@ app.listen(5000, () => {
     console.log("Server is running on port 5000");
   });
 
-
 module.exports = app;
+
+// routes
+const cards = require('./routes/api/Cards');
+const users = require('./routes/api/users')
+app.use('/api/cards', cards);
+app.use('/api/users', users);
 // use Routes
 /*
 //Sessions
