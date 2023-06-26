@@ -3,7 +3,7 @@ const cors = require('cors');
 const app = express();
 
 // routes
-const cards = require('../routes/api/cards');
+const cards = require('./routes/api/cards');
 app.use('/api/cards', cards);
 
 //ConnectDB
@@ -31,8 +31,6 @@ app.listen(5000, () => {
 
 module.exports = app;
 // use Routes
-
-app.use("/", UserRouter);
 /*
 //Sessions
 const oneDay = 1000 * 60 * 60 * 24;
