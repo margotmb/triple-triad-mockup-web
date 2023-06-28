@@ -5,15 +5,27 @@ import { useNavigate } from "react-router-dom";
 
 function Navigation({email}){
     const navigate = useNavigate()
-    function logout() {
+    const handleSubmit = async e => {
         fetch('https://tripletriadapi.onrender.com/api/users/logout', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        })
-        .then(data => navigate("/"))
-        
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+          })
+            .then(data => data.json())
+            .then(data =>{
+                if (data.cookie === undefined){
+                    alert(data.result)
+                }
+                else{
+                    console.log("LOGGED")
+                    
+                    navigate("/")
+
+                }
+            }
+            )
+        e.preventDefault();
     }
     return(
         <React.Fragment>
@@ -42,7 +54,7 @@ function Navigation({email}){
                     </Nav>
                     <Nav className="ms-auto">
                         <Nav.Link >{email}</Nav.Link>
-                        <Nav.Link onClick={() => logout()}>Logout</Nav.Link>
+                        <Nav.Link onClick={handleSubmit}>Logout</Nav.Link>
                     </Nav>
                     </Navbar.Collapse>
                 </Container>
