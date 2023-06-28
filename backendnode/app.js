@@ -29,7 +29,10 @@ mongoose.connect(
     console.log("CONNECTED")
 );
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://tripletriadgame.onrender.com',
+    optionsSuccessStatus: 200
+  }));
 
 //Read PUT/POST
 app.use(express.json({ extended: false }));
