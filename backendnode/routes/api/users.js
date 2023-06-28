@@ -69,7 +69,7 @@ router.post('/login',  (req,res) => {
       if(req.body.email == user.email && req.body.password == user.password){
           User.findByIdAndUpdate(user.id, {"session_id": token})
           .then(user => {
-            res.session.email = token;
+            res.session.userid = token;
             res.json(token);
             console.log("Logged")
           })
@@ -89,7 +89,7 @@ router.post('/login',  (req,res) => {
 // @route LOGOUT
 router.post('/logout',(req,res) => {
   console.log(req.session);
-  User.findOne({email: req.session.email})
+  User.findOne({email: req.session.userid})
   .then(user => {
     User.findByIdAndUpdate(user._id, {"session_id": ""})
     .then(user => {
@@ -108,7 +108,7 @@ router.post('/logout',(req,res) => {
 // @route get auth
 router.post('/auth', (req, res) => {
   console.log(req.session);
-  User.findOne({email: req.session.email})
+  User.findOne({email: req.session.userid})
   .then(user => {
     if (user != null){
       res.json(user)
