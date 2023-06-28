@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../../models/User');
+const cors = require('cors');
 
 
 // @route GET api/users
@@ -55,7 +56,7 @@ router.delete('/id/:id', (req, res) => {
 
 // @route LOGIN
 var session;
-router.post('/login',(req,res) => {
+router.post('/login', cors(), (req,res) => {
 
   User.findOne({email: req.body.email})
   .then(user => {
