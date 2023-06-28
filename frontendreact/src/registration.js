@@ -13,6 +13,7 @@ function RegistrationForm() {
 
         fetch('https://tripletriadapi.onrender.com/api/users/', {
             method: 'POST',
+            credentials: 'include',
             headers: {
               'Content-Type': 'application/json'
             },

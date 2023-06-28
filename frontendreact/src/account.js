@@ -13,6 +13,7 @@ function Account() {
     useEffect(() => { 
         fetch('https://tripletriadapi.onrender.com/api/users/auth',{
             method: 'GET',
+            credentials: 'include',
             headers: {
               'Content-Type': 'application/json'
             },
@@ -33,6 +34,7 @@ function Account() {
 
         fetch('https://tripletriadapi.onrender.com/api/users/', {
             method: 'POST',
+            credentials: 'include',
             headers: {
               'Content-Type': 'application/json'
             },

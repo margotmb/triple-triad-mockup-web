@@ -102,6 +102,7 @@ export default function Board() {
 
     fetch('https://tripletriadapi.onrender.com/api/users/auth',{
       method: 'GET',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -113,6 +114,7 @@ export default function Board() {
 
     fetch('https://tripletriadapi.onrender.com/api/users/email/testemail@testemail.com', {
       method: "GET",
+      credentials: 'include',
       headers: {
         "Accept": "application/json"
       }
