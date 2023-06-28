@@ -29,7 +29,7 @@ mongoose.connect(
     console.log("CONNECTED")
 );
 
-app.use(cors());
+
 
 //Read PUT/POST
 app.use(express.json({ extended: false }));
@@ -46,6 +46,7 @@ const cards = require('./routes/api/cards');
 const users = require('./routes/api/users');
 app.use('/api/cards', cards);
 app.use('/api/users', users);
+app.use(cors({origin: 'https://tripletriadgame.onrender.com/'}));
 
 
 
