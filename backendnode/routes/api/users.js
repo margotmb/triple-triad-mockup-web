@@ -54,7 +54,6 @@ router.delete('/id/:id', (req, res) => {
 });
 
 // @route LOGIN
-var session;
 router.post('/login',(req,res) => {
 
   User.findOne({email: req.body.email})
@@ -63,9 +62,7 @@ router.post('/login',(req,res) => {
       if(req.body.email == user.email && req.body.password == user.password){
           User.findByIdAndUpdate(user.id, {"session_id": req.session.id})
           .then(user => {
-            session=req.session;
-            session.userid=req.body.email;
-            res.send(session)
+            res.send(req.session)
           })
           
       }
@@ -82,7 +79,7 @@ router.post('/login',(req,res) => {
 
 // @route LOGOUT
 router.post('/logout',(req,res) => {
-  User.findOne({session_id: req.body.session.id})
+  User.findOne({email: req.body.email})
   .then(user => {
     User.findByIdAndUpdate(user._id, {"session_id": ""})
     .then(user => {
