@@ -20,11 +20,11 @@ app.use(cookieParser());
 //ConnectDB
 const mongoose = require("mongoose");
 mongoose.connect(
-    process.env.MONGODB_URI = "mongodb://127.0.0.1:27017/", 
+    process.env.MONGODB_URI = "mongodb+srv://margotmb:yWJNohfPTApjKxkO@tripletriad.6dyldmh.mongodb.net/", 
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        dbName: 'triple-triad',
+        dbName: 'tripletriad',
     },
     console.log("CONNECTED")
 );
