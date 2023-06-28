@@ -5,25 +5,27 @@ import { useNavigate } from "react-router-dom";
 
 function Navigation({email}){
     const navigate = useNavigate()
+    const [user,setUser] = useState(null);
     const handleSubmit = async e => {
-        fetch('https://tripletriadapi.onrender.com/api/users/logout', {
+        fetch('https://tripletriadapi.onrender.com/api/users/auth',{
             method: 'GET',
             headers: {
               'Content-Type': 'application/json'
             },
           })
-            .then(data => data.json())
-            .then(data =>{
-                if (data.cookie === undefined){
-                    alert(data.result)
-                }
-                else{
-                    console.log("LOGGED")
-                    
-                    navigate("/")
-
-                }
-            }
+          .then(user => user.json())
+          .then(user => {
+            setUser(user);
+          })
+        fetch('https://tripletriadapi.onrender.com/api/users/logout', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+          })
+            .then(data => {navigate("/")}
+            
             )
         e.preventDefault();
     }
@@ -54,7 +56,9 @@ function Navigation({email}){
                     </Nav>
                     <Nav className="ms-auto">
                         <Nav.Link >{email}</Nav.Link>
-                        <Nav.Link onClick={handleSubmit}>Logout</Nav.Link>
+                        <button onClick={handleSubmit} className="btn btn-primary" >
+                        Log off
+                        </button>
                     </Nav>
                     </Navbar.Collapse>
                 </Container>
