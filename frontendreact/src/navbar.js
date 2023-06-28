@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap"
 import { useNavigate } from "react-router-dom";
 
-
-function Navigation({email}){
-    const navigate = useNavigate()
-    const [user,setUser] = useState(null);
-    const handleSubmit = async e => {
-        fetch('https://tripletriadapi.onrender.com/api/users/auth',{
+/*fetch('/api/users/auth',{
             method: 'GET',
             headers: {
               'Content-Type': 'application/json'
@@ -15,23 +10,25 @@ function Navigation({email}){
           })
           .then(user => user.json())
           .then(user => {
-            setUser(user);
-            console.log(JSON.stringify(user));
-            fetch('https://tripletriadapi.onrender.com/api/users/logout', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-          })
-            .then(data => {navigate("/")}
-            
-            )
-        e.preventDefault();
-          })
-          
+            setUser(user);*/
+
+function Navigation({email}){
+    const navigate = useNavigate()
+    const [user,setUser] = useState(null);
+    const handleSubmit = async e => {
+
+        fetch('https://tripletriadapi.onrender.com/api/users/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        })
+        .then(data => {navigate("/")}
         
+        )
+        e.preventDefault();
     }
+          
     return(
         <React.Fragment>
             <Navbar expand="sm" className="bg-body-tertiary">
@@ -68,6 +65,5 @@ function Navigation({email}){
             </Navbar>
         </React.Fragment>
     )
-    
 }
 export default Navigation
