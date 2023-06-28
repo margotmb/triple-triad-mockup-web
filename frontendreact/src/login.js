@@ -14,8 +14,6 @@ function Login(){
 
         fetch('https://tripletriadapi.onrender.com/api/users/login', {
             method: 'POST',
-            mode: 'cors',
-            credentials: "omit",
             headers: {
               'Content-Type': 'application/json'
             },
@@ -23,21 +21,15 @@ function Login(){
           })
             .then(data => data.json())
             .then(data =>{
-                if (data.cookie === undefined){
-                    alert(data.result)
-                }
-                else{
-                    console.log("LOGGED")
+                console.log(data);
+                console.log("LOGGED");
                     
-                    navigate("/home")
+                navigate("/home")
 
-                }
-            }
-            )
+                })
+            
         e.preventDefault();
-
-      }
-
+    }
     return(
         <React.Fragment>
             <img className="title_login" src="https://i.imgur.com/T3ybYPx.png" ></img>
