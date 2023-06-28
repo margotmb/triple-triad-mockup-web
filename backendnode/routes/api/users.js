@@ -66,6 +66,7 @@ router.post('/login', cors(), (req,res) => {
           .then(user => {
             req.session.userid=req.body.email;
             res.send(req.session)
+            console.log("Logged")
           })
           
       }
@@ -100,7 +101,7 @@ router.post('/logout',(req,res) => {
 });
 
 // @route get auth
-router.post('/auth', (req, res) => {
+router.post('/auth', cors(),(req, res) => {
   console.log(req.session);
   User.findOne({email: req.session.userid})
   .then(user => {
