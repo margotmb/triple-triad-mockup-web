@@ -30,7 +30,7 @@ mongoose.connect(
 );
 
 app.use(cors({
-    origin: 'https://tripletriadgame.onrender.com',
+    origin: 'https://tripletriadapi.onrender.com',
     optionsSuccessStatus: 200
   }));
 
