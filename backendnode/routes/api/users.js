@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../../models/User');
-const cors = require('cors');
+const jwt = require('jsonwebtoken');
 
+function generateAccessToken(email) {
+  return jwt.sign(email, "shhh", { expiresIn: '1800s' });
+}
 
 // @route GET api/users
 // @description Get all users
@@ -57,15 +60,16 @@ router.delete('/id/:id', (req, res) => {
 // @route LOGIN
 var session;
 router.post('/login',  (req,res) => {
-  console.log(req.body.email)
   User.findOne({email: req.body.email})
   .then(user => {
+    console.log(user)
+    console.log("Found")
     if (user != null){
       if(req.body.email == user.email && req.body.password == user.password){
           User.findByIdAndUpdate(user.id, {"session_id": req.session.id})
           .then(user => {
-            req.session.userid=req.body.email;
-            res.send(req.session)
+            const token = generateAccessToken({ username: req.body.username });
+            res.json(token);
             console.log("Logged")
           })
           
