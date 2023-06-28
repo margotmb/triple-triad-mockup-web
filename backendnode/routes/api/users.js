@@ -62,13 +62,14 @@ var session;
 router.post('/login',  (req,res) => {
   User.findOne({email: req.body.email})
   .then(user => {
+    const token = generateAccessToken({ email: req.body.email });
     console.log(user)
     console.log("Found")
     if (user != null){
       if(req.body.email == user.email && req.body.password == user.password){
-          User.findByIdAndUpdate(user.id, {"session_id": req.session.id})
+          User.findByIdAndUpdate(user.id, {"session_id": token})
           .then(user => {
-            const token = generateAccessToken({ username: req.body.username });
+            res.session.email = token;
             res.json(token);
             console.log("Logged")
           })
@@ -88,7 +89,7 @@ router.post('/login',  (req,res) => {
 // @route LOGOUT
 router.post('/logout',(req,res) => {
   console.log(req.session);
-  User.findOne({email: req.session.userid})
+  User.findOne({email: req.session.email})
   .then(user => {
     User.findByIdAndUpdate(user._id, {"session_id": ""})
     .then(user => {
@@ -107,7 +108,7 @@ router.post('/logout',(req,res) => {
 // @route get auth
 router.post('/auth', (req, res) => {
   console.log(req.session);
-  User.findOne({email: req.session.userid})
+  User.findOne({email: req.session.email})
   .then(user => {
     if (user != null){
       res.json(user)
