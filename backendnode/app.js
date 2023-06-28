@@ -10,6 +10,7 @@ app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
     saveUninitialized:true,
     cookie: { maxAge: oneDay, httpOnly: false,},
+    domain: "https://tripletriadapi.onrender.com",
     resave: false 
 }));
 app.use(express.json());
