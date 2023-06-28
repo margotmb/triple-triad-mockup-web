@@ -82,7 +82,7 @@ router.post('/login',(req,res) => {
 
 // @route LOGOUT
 router.post('/logout',(req,res) => {
-  User.findOne({session_id: req.session.id})
+  User.findOne({session_id: req.body.session.id})
   .then(user => {
     User.findByIdAndUpdate(user._id, {"session_id": ""})
     .then(user => {

@@ -16,8 +16,8 @@ function Navigation({email}){
           .then(user => user.json())
           .then(user => {
             setUser(user);
-          })
-        fetch('https://tripletriadapi.onrender.com/api/users/logout', {
+            console.log(JSON.stringify(user));
+            fetch('https://tripletriadapi.onrender.com/api/users/logout', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -28,6 +28,9 @@ function Navigation({email}){
             
             )
         e.preventDefault();
+          })
+          
+        
     }
     return(
         <React.Fragment>
