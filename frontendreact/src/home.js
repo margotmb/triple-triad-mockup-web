@@ -6,7 +6,7 @@ function Home(){
     const [name, setName] = useState(null)
     const [email, setEmail] = useState(null)
     fetch('https://tripletriadapi.onrender.com/api/users/auth',{
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
