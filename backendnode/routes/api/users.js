@@ -82,6 +82,7 @@ router.post('/login', cors(), (req,res) => {
 
 // @route LOGOUT
 router.post('/logout',(req,res) => {
+  console.log(req.session);
   User.findOne({email: req.session.userid})
   .then(user => {
     User.findByIdAndUpdate(user._id, {"session_id": ""})
@@ -100,7 +101,7 @@ router.post('/logout',(req,res) => {
 
 // @route get auth
 router.post('/auth', (req, res) => {
-  console.log(req.session.userid);
+  console.log(req.session);
   User.findOne({email: req.session.userid})
   .then(user => {
     if (user != null){
