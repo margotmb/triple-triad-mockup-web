@@ -12,7 +12,7 @@ function Login(){
     const [password, setPassword] = useState();
     const handleSubmit = async e => {
 
-        fetch('/api/users/login', {
+        fetch('https://tripletriadapi.onrender.com/api/users/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

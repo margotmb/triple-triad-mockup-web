@@ -11,7 +11,7 @@ function Account() {
     var email_upd;
     var password_upd;
     useEffect(() => { 
-        fetch('http://localhost:5000/api/users/auth',{
+        fetch('https://tripletriadapi.onrender.com/api/users/auth',{
             method: 'GET',
             headers: {
               'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ function Account() {
 
     const handleSubmit = async e => {
 
-        fetch('/api/users/', {
+        fetch('https://tripletriadapi.onrender.com/api/users/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

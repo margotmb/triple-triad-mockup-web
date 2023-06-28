@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Navigation({email}){
     const navigate = useNavigate()
     function logout() {
-        fetch('/api/users/logout', {
+        fetch('https://tripletriadapi.onrender.com/api/users/logout', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'

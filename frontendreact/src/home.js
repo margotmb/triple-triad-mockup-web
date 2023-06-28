@@ -5,7 +5,7 @@ import Navigation from "./navbar";
 function Home(){
     const [name, setName] = useState(null)
     const [email, setEmail] = useState(null)
-    fetch('http://localhost:5000/api/users/auth',{
+    fetch('https://tripletriadapi.onrender.com/api/users/auth',{
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

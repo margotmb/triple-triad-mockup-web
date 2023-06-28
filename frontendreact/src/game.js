@@ -100,7 +100,7 @@ export default function Board() {
   //requests da API pra começar o jogo
   function game_start(){
 
-    fetch('http://localhost:5000/api/users/auth',{
+    fetch('https://tripletriadapi.onrender.com/api/users/auth',{
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -111,7 +111,7 @@ export default function Board() {
       setPlayerHand(user.deck)
     })
 
-    fetch('/api/users/email/testemail@testemail.com', {
+    fetch('https://tripletriadapi.onrender.com/api/users/email/testemail@testemail.com', {
       method: "GET",
       headers: {
         "Accept": "application/json"

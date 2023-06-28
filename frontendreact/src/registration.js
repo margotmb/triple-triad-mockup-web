@@ -11,7 +11,7 @@ function RegistrationForm() {
     const [password, setPassword] = useState();
     const handleSubmit = async e => {
 
-        fetch('/api/users/', {
+        fetch('https://tripletriadapi.onrender.com/api/users/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
