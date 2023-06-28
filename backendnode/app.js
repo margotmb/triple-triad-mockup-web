@@ -42,7 +42,7 @@ app.listen(5000, () => {
 module.exports = app;
 
 // routes
-const cards = require('./routes/api/Cards');
+const cards = require('./routes/api/cards');
 const users = require('./routes/api/users');
 app.use('/api/cards', cards);
 app.use('/api/users', users);
