@@ -98,7 +98,7 @@ router.post('/logout',(req,res) => {
 });
 
 // @route get auth
-router.get('/auth', (req, res) => {
+router.post('/auth', (req, res) => {
   console.log(req.session.userid);
   User.findOne({email: req.session.userid})
   .then(user => {
