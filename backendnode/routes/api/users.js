@@ -56,8 +56,8 @@ router.delete('/id/:id', (req, res) => {
 
 // @route LOGIN
 var session;
-router.post('/login', cors(), (req,res) => {
-
+router.post('/login',  (req,res) => {
+  console.log(req.body.email)
   User.findOne({email: req.body.email})
   .then(user => {
     if (user != null){
@@ -101,7 +101,7 @@ router.post('/logout',(req,res) => {
 });
 
 // @route get auth
-router.post('/auth', cors(),(req, res) => {
+router.post('/auth', (req, res) => {
   console.log(req.session);
   User.findOne({email: req.session.userid})
   .then(user => {
