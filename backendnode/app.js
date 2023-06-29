@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // cookie parser middleware
 app.use(cookieParser());
-app.use(cors({origin: ['https://tripletriadgame.onrender.com', 'https://tripletriadgame.onrender.com/home']}))
+app.use(cors({origin: ['https://tripletriadgame.onrender.com','https://tripletriadgame.onrender.com/register', 'https://tripletriadgame.onrender.com/home', 'https://tripletriadgame.onrender.com/game', 'https://tripletriadgame.onrender.com/account' ]}))
 //ConnectDB
 const mongoose = require("mongoose");
 mongoose.connect(
@@ -41,10 +41,10 @@ module.exports = app;
 // routes
 const cards = require('./routes/api/cards');
 const users = require('./routes/api/users');
-app.options('/api/cards', cors({origin: ['https://tripletriadgame.onrender.com', 'https://tripletriadgame.onrender.com/home']}));
-app.use('/api/cards', cards, cors({origin: ['https://tripletriadgame.onrender.com', 'https://tripletriadgame.onrender.com/home']}));
-app.options('/api/users', cors({origin: ['https://tripletriadgame.onrender.com', 'https://tripletriadgame.onrender.com/home']}));
-app.use('/api/users', users, cors({origin: ['https://tripletriadgame.onrender.com', 'https://tripletriadgame.onrender.com/home']}));
+app.options('/api/cards', cors({origin: ['https://tripletriadgame.onrender.com','https://tripletriadgame.onrender.com/register', 'https://tripletriadgame.onrender.com/home', 'https://tripletriadgame.onrender.com/game', 'https://tripletriadgame.onrender.com/account' ]}));
+app.use('/api/cards', cards, cors({origin: ['https://tripletriadgame.onrender.com','https://tripletriadgame.onrender.com/register', 'https://tripletriadgame.onrender.com/home', 'https://tripletriadgame.onrender.com/game', 'https://tripletriadgame.onrender.com/account' ]}));
+app.options('/api/users', cors({origin: ['https://tripletriadgame.onrender.com','https://tripletriadgame.onrender.com/register', 'https://tripletriadgame.onrender.com/home', 'https://tripletriadgame.onrender.com/game', 'https://tripletriadgame.onrender.com/account' ]}));
+app.use('/api/users', users, cors({origin: ['https://tripletriadgame.onrender.com','https://tripletriadgame.onrender.com/register', 'https://tripletriadgame.onrender.com/home', 'https://tripletriadgame.onrender.com/game', 'https://tripletriadgame.onrender.com/account' ]}));
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
