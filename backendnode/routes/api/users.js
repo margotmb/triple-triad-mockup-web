@@ -108,6 +108,7 @@ router.get('/logout',(req,res) => {
 
 // @route get auth
 router.post('/auth', (req, res) => {
+  res.set('Access-Control-Allow-Origin', 'https://tripletriadgame.onrender.com')
   User.findOne({email: req.session.email})
   .then(user => {
     if (user != null){
