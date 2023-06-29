@@ -3,7 +3,7 @@ const sessions = require('express-session');
 const cookieParser = require("cookie-parser");
 const cors = require('cors');
 const app = express();
-app.use(cors({origin: 'https://www.tripletriadgame.onrender.com' , credentials: true}));
+app.use(cors({origin: "tripletriadgame.onrender.com"}));
 //Sessions
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
