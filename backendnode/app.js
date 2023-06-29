@@ -3,13 +3,13 @@ const sessions = require('express-session');
 const cookieParser = require("cookie-parser");
 const cors = require('cors');
 const app = express();
-app.use(cors({origin: 'https://tripletriadgame.onrender.com'}));
+app.use(cors({origin: 'https://tripletriadapi.onrender.com:3000' , credentials: true}));
 //Sessions
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
     saveUninitialized:true,
-    cookie: { maxAge: oneDay, httpOnly: false, domain: "https://tripletriadgame.onrender.com"},
+    cookie: { maxAge: oneDay, httpOnly: false},
     resave: false 
 }));
 app.use(express.json());
