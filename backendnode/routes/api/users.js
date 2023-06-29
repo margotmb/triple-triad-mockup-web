@@ -63,8 +63,6 @@ router.post('/login',  (req,res) => {
   User.findOne({email: req.body.email})
   .then(user => {
     const token = generateAccessToken({ email: req.body.email });
-    console.log(user)
-    console.log("Found")
     if (user != null){
       if(req.body.email == user.email && req.body.password == user.password){
           User.findByIdAndUpdate(user.id, {"session_id": token})
@@ -107,6 +105,8 @@ router.get('/logout',(req,res) => {
 
 // @route get auth
 router.post('/auth', (req, res) => {
+  console.log(req.session);
+  console.log(req.session.email);
   User.findOne({email: req.session.email})
   .then(user => {
     if (user != null){
