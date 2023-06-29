@@ -33,9 +33,11 @@ app.use(express.json({ extended: false }));
 
 //PORT SET
 
-
+var port = 5000;
 module.exports = app;
-
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
 // routes
 const cards = require('./routes/api/cards');
 const users = require('./routes/api/users');
