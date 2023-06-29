@@ -9,7 +9,7 @@ const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
     saveUninitialized:true,
-    cookie: { maxAge: oneDay, httpOnly: false},
+    cookie: { maxAge: oneDay},
     resave: false 
 }));
 app.use(express.json());
@@ -28,7 +28,7 @@ mongoose.connect(
     },
     console.log("CONNECTED")
 );
-
+app.use(cors());
 //Read PUT/POST
 app.use(express.json({ extended: false }));
 
