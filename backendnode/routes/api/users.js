@@ -7,6 +7,22 @@ function generateAccessToken(email) {
   return jwt.sign(email, "shhh", { expiresIn: '1800s' });
 }
 
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+
+  if (token == null) return res.sendStatus(401)
+
+  jwt.verify(token, "shhh" , (err, user) => {
+    console.log(err)
+
+    if (err) return res.sendStatus(403)
+
+    req.user = user
+
+    next()
+  })
+}
 // @route GET api/users
 // @description Get all users
 router.get('/', (req, res) => {
@@ -59,7 +75,7 @@ router.delete('/id/:id', (req, res) => {
 
 // @route LOGIN
 var session;
-router.post('/login',  (req,res) => {
+router.post('/login', (req,res) => {
   User.findOne({email: req.body.email})
   .then(user => {
     const token = generateAccessToken({ email: req.body.email });
@@ -67,7 +83,6 @@ router.post('/login',  (req,res) => {
       if(req.body.email == user.email && req.body.password == user.password){
           User.findByIdAndUpdate(user.id, {"session_id": token})
           .then(user => {
-            req.session.email = req.body.email;
             res.json(token);
             console.log("Logged")
           })
@@ -104,10 +119,11 @@ router.get('/logout',(req,res) => {
 });
 
 // @route get auth
-router.post('/auth', (req, res) => {
-  console.log(req.session);
-  console.log(req.session.email);
-  User.findOne({email: req.session.email})
+router.post('/auth', authenticateToken, (req, res) => {
+  console.log(req.user);
+  console.log(req.user.email);
+  console.log("/////");
+  User.findOne({email: req.user.email})
   .then(user => {
     if (user != null){
       console.log(user);
