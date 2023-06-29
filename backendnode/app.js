@@ -3,7 +3,7 @@ const sessions = require('express-session');
 const cookieParser = require("cookie-parser");
 const cors = require('cors');
 const app = express();
-app.use(cors({origin: 'https://tripletriadgame.onrender.com/' , credentials: true}));
+app.use(cors({origin: 'https://www.tripletriadgame.onrender.com/' , credentials: true}));
 //Sessions
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
@@ -29,15 +29,11 @@ mongoose.connect(
     console.log("CONNECTED")
 );
 
-
-
 //Read PUT/POST
 app.use(express.json({ extended: false }));
 
 //PORT SET
-app.listen(5000, () => {
-    console.log("Server is running on port 5000");
-  });
+
 
 module.exports = app;
 
