@@ -14,8 +14,6 @@ function Login(){
 
         fetch('https://tripletriadapi.onrender.com/api/users/login', {
             method: 'POST',
-            mode: "cors",
-            credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
             },
