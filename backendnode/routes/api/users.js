@@ -60,6 +60,7 @@ router.delete('/id/:id', (req, res) => {
 // @route LOGIN
 var session;
 router.post('/login',  (req,res) => {
+  res.set('Access-Control-Allow-Origin', 'https://tripletriadgame.onrender.com')
   User.findOne({email: req.body.email})
   .then(user => {
     const token = generateAccessToken({ email: req.body.email });
