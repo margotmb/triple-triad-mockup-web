@@ -365,6 +365,9 @@ export default function Board() {
           blue++;
         }
     }
+    jogadas = 0;
+    carta_selecionada = null;
+    indice_carta_selecionada = null;
     return red > blue
   }
   async function handleNavigate(path){
