@@ -27,6 +27,9 @@ function Navigation({email}){
         )
         e.preventDefault();
     }
+    async function handleNavigate(path){
+        await navigate(path);
+    }
     return(
         <React.Fragment>
             <Navbar expand="sm" className="bg-body-tertiary">
@@ -35,12 +38,12 @@ function Navigation({email}){
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link onClick={() => navigate("/home")}>Home</Nav.Link>
+                        <Nav.Link onClick={() => handleNavigate("/home")}>Home</Nav.Link>
                         <Nav.Link>Deck Manager</Nav.Link>
                         <Nav.Link>Collection</Nav.Link>
                         <Nav.Link>Account</Nav.Link>
                         <NavDropdown title="Play Game" id="basic-nav-dropdown">
-                        <NavDropdown.Item onClick={() => navigate("/game")}>Easy</NavDropdown.Item>
+                        <NavDropdown.Item onClick={() => handleNavigate("/game")}>Easy</NavDropdown.Item>
                         <NavDropdown.Item>
                             Hard[NotImplemented]
                         </NavDropdown.Item>
