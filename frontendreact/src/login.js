@@ -25,7 +25,7 @@ function Login(){
             .then(data =>{
                 
                 const cookies = new Cookies();
-                cookies.set('token', data);
+                cookies.set('token', data, {sameSite: 'lax'});
                 console.log(cookies.get('token'));
                 console.log("LOGGED");
                     
