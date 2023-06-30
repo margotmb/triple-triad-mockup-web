@@ -10,7 +10,7 @@ function Login(){
     const navigate = useNavigate()
     useEffect(() => {
         if (cookies.get('token') != undefined){
-            navigate("/");
+            navigate("/home");
         }
     });
     const [email, setEmail] = useState();
