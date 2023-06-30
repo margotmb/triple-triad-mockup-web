@@ -82,11 +82,11 @@ router.post('/login', (req,res) => {
           
       }
       else{
-          res.send({"result":'Invalid username or password'});
+          res.send({"result": false});
       }
     }
     else{
-      res.send({"result":"Invalid username or password-"})
+      res.send({"result": false})
     }
   }
   )
