@@ -365,7 +365,9 @@ export default function Board() {
     }
     return red > blue
   }
-
+  async function handleNavigate(path){
+    await navigate(path);
+  }
   if (isLoading) {
     return(
       <React.Fragment>
@@ -380,7 +382,7 @@ export default function Board() {
     return (
       <React.Fragment>
                 <div className="botao-voltar">
-          <Button className="d-grid gap-2 mt-3" size="sm" variant="success" href="/home">Voltar</Button>
+          <Button className="d-grid gap-2 mt-3" size="sm" variant="success" onClick={() => handleNavigate("/home")}>Voltar</Button>
         </div>
         <div className="game">
           
@@ -436,7 +438,7 @@ export default function Board() {
                   </p>
                   <img src=""></img>
                   <div className="d-grid gap-2">
-                    <Button variant="success" href="/home">OK</Button>
+                    <Button variant="success" onClick={() => handleNavigate("/home")}>OK</Button>
                   </div>
               </Modal.Body>
           </Modal>
