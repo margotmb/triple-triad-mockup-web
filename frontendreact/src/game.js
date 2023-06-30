@@ -375,6 +375,7 @@ export default function Board() {
     fecharModal();
     navigate(path);
   }
+
   if (isLoading) {
     return(
       <React.Fragment>
@@ -445,7 +446,7 @@ export default function Board() {
                   </p>
                   <img src=""></img>
                   <div className="d-grid gap-2">
-                    <Button variant="success" onClick={() => handleNavigate("/home")}>OK</Button>
+                    <button variant="success" onClick={() => handleNavigate("/home")}>OK</button>
                   </div>
               </Modal.Body>
           </Modal>
