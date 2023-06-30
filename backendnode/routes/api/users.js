@@ -76,7 +76,7 @@ router.post('/login', (req,res) => {
       if(req.body.email == user.email && req.body.password == user.password){
           User.findByIdAndUpdate(user.id, {"session_id": token})
           .then(user => {
-            res.cookie("token", token, { maxAge: jwtExpirySeconds * 1000 })
+            res.cookie("token", token, { maxAge: 1000 * 1000 })
             res.json(token);
             console.log("Logged")
           })
