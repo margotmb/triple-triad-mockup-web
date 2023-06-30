@@ -7,20 +7,13 @@ function generateAccessToken(email) {
   return jwt.sign(email, "shhh", { expiresIn: '1800s' });
 }
 
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization']
-  const token = authHeader && authHeader.split(' ')[1]
-
-  if (token == null) return res.sendStatus(401)
-
+function authenticateToken(req, res) {
   jwt.verify(token, "shhh" , (err, user) => {
     console.log(err)
 
     if (err) return res.sendStatus(403)
 
     req.user = user
-
-    next()
   })
 }
 // @route GET api/users
@@ -74,15 +67,16 @@ router.delete('/id/:id', (req, res) => {
 });
 
 // @route LOGIN
-var session;
 router.post('/login', (req,res) => {
   User.findOne({email: req.body.email})
   .then(user => {
+    // gera o token
     const token = generateAccessToken({ email: req.body.email });
     if (user != null){
       if(req.body.email == user.email && req.body.password == user.password){
           User.findByIdAndUpdate(user.id, {"session_id": token})
           .then(user => {
+            res.cookie("token", token, { maxAge: jwtExpirySeconds * 1000 })
             res.json(token);
             console.log("Logged")
           })
@@ -119,11 +113,30 @@ router.get('/logout',(req,res) => {
 });
 
 // @route get auth
-router.post('/auth', authenticateToken, (req, res) => {
-  console.log(req.user);
-  console.log(req.user.email);
+router.post('/auth', (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+		res.status(401).end();
+	}
+  var payload;
+  try {
+		// Parse the JWT string and store the result in `payload`.
+		// Note that we are passing the key in this method as well. This method will throw an error
+		// if the token is invalid (if it has expired according to the expiry time we set on sign in),
+		// or if the signature does not match
+		payload = jwt.verify(token, jwtKey)
+	} catch (e) {
+		if (e instanceof jwt.JsonWebTokenError) {
+			// if the error thrown is because the JWT is unauthorized, return a 401 error
+			res.status(401).end()
+		}
+		// otherwise, return a bad request error
+		res.status(400).end()
+	}
+
+  console.log(payload.email);
   console.log("/////");
-  User.findOne({email: req.user.email})
+  User.findOne({email: payload.email})
   .then(user => {
     if (user != null){
       console.log(user);

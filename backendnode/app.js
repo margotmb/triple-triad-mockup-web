@@ -1,22 +1,14 @@
 const express = require("express");
-const sessions = require('express-session');
-const cookieParser = require("cookie-parser");
 const cors = require('cors');
+const cookieParser = require("cookie-parser")
 const app = express();
 
 
 //Sessions
-const oneDay = 1000 * 60 * 60 * 24;
-app.use(sessions({
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-    saveUninitialized:true,
-    cookie: { maxAge: oneDay, domain: '.onrender.com'},
-    resave: false 
-}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
 // cookie parser middleware
-app.use(cookieParser());
 app.use(cors({origin: ['https://tripletriadgame.onrender.com','https://tripletriadgame.onrender.com/register', 'https://tripletriadgame.onrender.com/home', 'https://tripletriadgame.onrender.com/game', 'https://tripletriadgame.onrender.com/account' ]}))
 //ConnectDB
 const mongoose = require("mongoose");
