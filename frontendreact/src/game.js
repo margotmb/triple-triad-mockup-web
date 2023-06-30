@@ -4,6 +4,7 @@ import { useState, useEffect} from 'react';
 //import enemy_data from "../src/resources/enemy_hand.json"
 import {Modal, Button} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
+import { useNavigate } from "react-router-dom";
 
 var count = 0;
 var jogadas = 0;
@@ -83,6 +84,7 @@ function Card({carta, onCardClick, cardColor = "tt-card", enemyCard = false, han
 
 export default function Board() {
   const cookies = new Cookies();
+  const navigate = useNavigate()
   var token = cookies.get("token");
   const [playerHand, setPlayerHand] = useState([]);
   const [enemyHand, setEnemyHand] = useState([]);
