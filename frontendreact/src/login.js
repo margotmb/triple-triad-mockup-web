@@ -23,7 +23,7 @@ function Login(){
           })
             .then(data => data.json())
             .then(data =>{
-                if (!data.result){
+                if (data.result){
                     const cookies = new Cookies();
                     cookies.set('token', data, {sameSite: 'lax'});
                     console.log(cookies.get('token'));
