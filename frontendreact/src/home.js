@@ -1,8 +1,12 @@
 import React, {useState} from "react";
 import "./styles/home.css";
 import Navigation from "./navbar";
+import Cookies from 'universal-cookie';
 
 function Home(){
+    const cookies = new Cookies();
+    var token = cookies.get("token");
+
     const [name, setName] = useState(null)
     const [email, setEmail] = useState(null)
     fetch('https://tripletriadapi.onrender.com/api/users/auth',{
@@ -11,6 +15,8 @@ function Home(){
         headers: {
           'Content-Type': 'application/json'
         },
+        body: {token}
+
       })
       .then(user => user.json())
       .then(user => {

@@ -113,7 +113,7 @@ router.get('/logout',(req,res) => {
 
 // @route get auth
 router.post('/auth', (req, res) => {
-  const token = req.cookies.token;
+  const token = req.body.token;
   if (!token) {
 		res.status(401).end();
 	}
