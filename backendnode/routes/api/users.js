@@ -113,7 +113,7 @@ router.post('/logout',(req,res) => {
 		// otherwise, return a bad request error
 		res.status(400).end()
 	}
-  res.status(200)
+  res.status(200).end()
   });
 
 // @route get auth

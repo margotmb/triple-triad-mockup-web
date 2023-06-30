@@ -21,16 +21,9 @@ function Navigation({email}){
         body: JSON.stringify({"token" : token})
         })
         .then(response => {
-            if (response.status === 200){
-                cookies.remove("token");
-                navigate("/");
+            cookies.remove("token");
+            navigate("/");
             }
-            else{
-                alert("ERROR");
-            }
-
-        }
-        
         )
         e.preventDefault();
     }
