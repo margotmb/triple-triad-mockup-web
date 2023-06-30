@@ -422,33 +422,6 @@ export default function Board() {
             <Card carta={enemyHand[3]} enemyCard={true}/>
             <Card carta={enemyHand[4]} enemyCard={true}/>
           </div>
-         
-          <Modal 
-            show={modalIsOpen} 
-            //onHide={false}
-            animation={false} 
-            contentClassName="transparentBgClass"
-            //dialogClassName="modal-90w"
-            //aria-labelledby="example-custom-modal-styling-title"
-            size="sm"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-          >
-            
-              <Modal.Header >
-                  <Modal.Title>
-                      <p>{matchResult} wins!</p>
-                  </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                  <p>
-                      --PLACEHOLDER REWARD--
-                  </p>
-                  <div className="d-grid gap-2">
-                    <button variant="success" onClick={() => handleNavigate("/home")}>OK</button>
-                  </div>
-              </Modal.Body>
-          </Modal>
         </div>
 
       </React.Fragment>
