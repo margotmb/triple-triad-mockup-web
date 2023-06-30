@@ -371,8 +371,8 @@ export default function Board() {
     indice_carta_selecionada = null;
     return red > blue
   }
-  async function handleNavigate(path){
-    await navigate(path);
+  function handleNavigate(path){
+    navigate(path);
   }
   if (isLoading) {
     return(
