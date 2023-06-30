@@ -21,8 +21,14 @@ function Navigation({email}){
         body: JSON.stringify({"token" : token})
         })
         .then(data => {
-            cookies.remove("token");
-            navigate("/");
+            if (!data.ok){
+                alert ("ERROR")
+            }
+            else{
+                cookies.remove("token");
+                navigate("/");
+            }
+
         }
         
         )

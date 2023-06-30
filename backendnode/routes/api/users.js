@@ -93,7 +93,7 @@ router.post('/login', (req,res) => {
 })
 
 // @route LOGOUT
-router.get('/logout',(req,res) => {
+router.post('/logout',(req,res) => {
   const token = req.body.token;
   if (!token) {
 		res.status(401).end();
@@ -113,7 +113,6 @@ router.get('/logout',(req,res) => {
 		// otherwise, return a bad request error
 		res.status(400).end()
 	}
-  res.send({"result":"Logged out"});
   });
 
 // @route get auth
