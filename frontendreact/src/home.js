@@ -10,25 +10,23 @@ function Home(){
     var token = cookies.get("token");
     const [name, setName] = useState(null)
     const [email, setEmail] = useState(null)
-    if (token === undefined){
-      navigate("/");
-    }else{
-      fetch('https://tripletriadapi.onrender.com/api/users/auth',{
-          method: 'POST',
-          mode: 'cors',
-          credentials: "include",
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify ({"token" : token})
-  
-        })
-        .then(user => user.json())
-        .then(user => {
-          setName(user.name)
-          setEmail(user.email)
-        })
-    }
+
+    fetch('https://tripletriadapi.onrender.com/api/users/auth',{
+        method: 'POST',
+        mode: 'cors',
+        credentials: "include",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify ({"token" : token})
+
+      })
+      .then(user => user.json())
+      .then(user => {
+        setName(user.name)
+        setEmail(user.email)
+      })
+    
 
     return(
         <React.Fragment>

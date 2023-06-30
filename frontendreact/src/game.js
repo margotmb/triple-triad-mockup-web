@@ -3,7 +3,7 @@ import { useState, useEffect} from 'react';
 //import player_data from "../src/resources/player_hand.json"
 //import enemy_data from "../src/resources/enemy_hand.json"
 import {Modal, Button} from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 var count = 0;
 var jogadas = 0;
@@ -82,7 +82,8 @@ function Card({carta, onCardClick, cardColor = "tt-card", enemyCard = false, han
 }
 
 export default function Board() {
-
+  const cookies = new Cookies();
+  var token = cookies.get("token");
   const [playerHand, setPlayerHand] = useState([]);
   const [enemyHand, setEnemyHand] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -101,11 +102,13 @@ export default function Board() {
   function game_start(){
 
     fetch('https://tripletriadapi.onrender.com/api/users/auth',{
-      method: 'GET',
+      method: 'POST',
+      mode: 'cors',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
+      body:JSON.stringify({"token" : token})
     })
     .then(user => user.json())
     .then(user => {

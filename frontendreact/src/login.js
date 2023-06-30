@@ -6,8 +6,13 @@ import Cookies from 'universal-cookie';
 
 
 function Login(){
+    const cookies = new Cookies();
     const navigate = useNavigate()
- 
+    useEffect(() => {
+        if (cookies.get('token') != undefined){
+            navigate("/");
+        }
+    });
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const handleSubmit = async e => {
@@ -27,7 +32,7 @@ function Login(){
                     alert("Email ou Password errado")
                 }
                 else{
-                    const cookies = new Cookies();
+                    
                     cookies.set('token', data, {sameSite: 'lax'});
                     console.log(cookies.get('token'));
                     console.log("LOGGED");
