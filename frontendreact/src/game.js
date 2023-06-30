@@ -372,6 +372,7 @@ export default function Board() {
     return red > blue
   }
   function handleNavigate(path){
+    fecharModal();
     navigate(path);
   }
   if (isLoading) {
