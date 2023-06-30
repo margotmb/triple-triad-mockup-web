@@ -2,7 +2,7 @@ import React, { useState , useEffect} from "react";
 import "./styles/login.css";
 import "bootstrap/dist/css/bootstrap.min.css"
 import { useNavigate } from "react-router-dom";
-
+import Cookies from 'universal-cookie';
 
 
 function Login(){
@@ -23,7 +23,10 @@ function Login(){
           })
             .then(data => data.json())
             .then(data =>{
-                console.log(data);
+                
+                const cookies = new Cookies();
+                cookies.set('token', data);
+                console.log(cookies.get('token'));
                 console.log("LOGGED");
                     
                 navigate("/home")
