@@ -16,7 +16,7 @@ function Home(){
         headers: {
           'Content-Type': 'application/json'
         },
-        body: {token}
+        body: JSON.stringify ({"token" : token})
 
       })
       .then(user => user.json())
