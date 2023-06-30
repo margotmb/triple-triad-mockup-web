@@ -20,13 +20,13 @@ function Navigation({email}){
         },
         body: JSON.stringify({"token" : token})
         })
-        .then(data => {
-            if (!data.ok){
-                alert ("ERROR")
-            }
-            else{
+        .then(response => {
+            if (response.status === 200){
                 cookies.remove("token");
                 navigate("/");
+            }
+            else{
+                alert("ERROR");
             }
 
         }
