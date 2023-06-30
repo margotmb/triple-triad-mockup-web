@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 function Home(){
     const cookies = new Cookies();
+    const navigate = useNavigate()
     var token = cookies.get("token");
     const [name, setName] = useState(null)
     const [email, setEmail] = useState(null)
     if (token === undefined){
-      const navigate = useNavigate()
       navigate("/");
     }else{
       fetch('https://tripletriadapi.onrender.com/api/users/auth',{
