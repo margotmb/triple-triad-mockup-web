@@ -23,21 +23,19 @@ function Login(){
           })
             .then(data => data.json())
             .then(data =>{
-                if (data.result){
+                if (data.result == false){
+                    alert("Email ou Password errado")
+                }
+                else{
                     const cookies = new Cookies();
                     cookies.set('token', data, {sameSite: 'lax'});
                     console.log(cookies.get('token'));
                     console.log("LOGGED");
                         
                     navigate("/home")
-    
-                    }
-                    else{
-                        alert("Email ou Password errado")
-                    }
-                }
 
-            )
+                }
+            })
             
         e.preventDefault();
     }
