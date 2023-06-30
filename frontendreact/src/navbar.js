@@ -21,7 +21,7 @@ function Navigation({email}){
         body: JSON.stringify({"token" : token})
         })
         .then(response => {
-            cookies.remove("token");
+            cookies.remove("token", {sameSite: 'lax'});
             navigate("/");
             }
         )

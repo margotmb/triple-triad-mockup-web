@@ -7,15 +7,6 @@ function generateAccessToken(email) {
   return jwt.sign(email, "shhh", { expiresIn: '1800s' });
 }
 
-function authenticateToken(req, res) {
-  jwt.verify(token, "shhh" , (err, user) => {
-    console.log(err)
-
-    if (err) return res.sendStatus(403)
-
-    req.user = user
-  })
-}
 // @route GET api/users
 // @description Get all users
 router.get('/', (req, res) => {
@@ -78,8 +69,7 @@ router.post('/login', (req,res) => {
           .then(user => {
             res.json(token);
             console.log("Logged")
-          })
-          
+          })   
       }
       else{
           res.send({"result": false});
@@ -138,12 +128,9 @@ router.post('/auth', (req, res) => {
 		res.status(400).end()
 	}
 
-  console.log(payload.email);
-  console.log("/////");
   User.findOne({email: payload.email})
   .then(user => {
     if (user != null){
-      console.log(user);
       res.json(user)
     }
     else{

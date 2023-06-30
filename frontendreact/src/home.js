@@ -2,28 +2,34 @@ import React, {useState} from "react";
 import "./styles/home.css";
 import Navigation from "./navbar";
 import Cookies from 'universal-cookie';
+import { useNavigate } from "react-router-dom";
 
 function Home(){
     const cookies = new Cookies();
     var token = cookies.get("token");
-
     const [name, setName] = useState(null)
     const [email, setEmail] = useState(null)
-    fetch('https://tripletriadapi.onrender.com/api/users/auth',{
-        method: 'POST',
-        mode: 'cors',
-        credentials: "include",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify ({"token" : token})
+    if (token === undefined){
+      const navigate = useNavigate()
+      navigate("/");
+    }else{
+      fetch('https://tripletriadapi.onrender.com/api/users/auth',{
+          method: 'POST',
+          mode: 'cors',
+          credentials: "include",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify ({"token" : token})
+  
+        })
+        .then(user => user.json())
+        .then(user => {
+          setName(user.name)
+          setEmail(user.email)
+        })
+    }
 
-      })
-      .then(user => user.json())
-      .then(user => {
-        setName(user.name)
-        setEmail(user.email)
-      })
     return(
         <React.Fragment>
             <Navigation email={email}/>
