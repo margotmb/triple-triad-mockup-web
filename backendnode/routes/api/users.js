@@ -94,22 +94,27 @@ router.post('/login', (req,res) => {
 
 // @route LOGOUT
 router.get('/logout',(req,res) => {
-  User.findOne({email: req.session.email})
-  .then(user => {
-    console.log(user);
-    User.findByIdAndUpdate(user._id, {"session_id": ""})
-    .then(user => {
-      req.session.destroy();
-      res.status(200).clearCookie('connect.sid', {
-        path: '/'
-      });
-      res.send({"result":"Logged out"});
-    })
-    
-  })
-  
-
-});
+  const token = req.body.token;
+  if (!token) {
+		res.status(401).end();
+	}
+  var payload;
+  try {
+		// Parse the JWT string and store the result in `payload`.
+		// Note that we are passing the key in this method as well. This method will throw an error
+		// if the token is invalid (if it has expired according to the expiry time we set on sign in),
+		// or if the signature does not match
+		payload = jwt.verify(token, "shhh")
+	} catch (e) {
+		if (e instanceof jwt.JsonWebTokenError) {
+			// if the error thrown is because the JWT is unauthorized, return a 401 error
+			res.status(401).end()
+		}
+		// otherwise, return a bad request error
+		res.status(400).end()
+	}
+  res.send({"result":"Logged out"});
+  });
 
 // @route get auth
 router.post('/auth', (req, res) => {

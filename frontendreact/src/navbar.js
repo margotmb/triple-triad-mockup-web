@@ -1,20 +1,29 @@
 import React, { useState, useEffect } from "react";
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap"
 import { useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 
 
 function Navigation({email}){
+    const cookies = new Cookies();
     const navigate = useNavigate()
+    var token = cookies.get("token");
     const handleSubmit = async e => {
         
         fetch('https://tripletriadapi.onrender.com/api/users/logout', {
         method: 'POST',
+        mode: 'cors',
+        credentials: "include",
         headers: {
             'Content-Type': 'application/json'
         },
+        body: JSON.stringify({"token" : token})
         })
-        .then(data => {navigate("/")}
+        .then(data => {
+            cookies.remove("token");
+            navigate("/");
+        }
         
         )
         e.preventDefault();
