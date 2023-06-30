@@ -365,6 +365,7 @@ export default function Board() {
           blue++;
         }
     }
+    count = 0;
     jogadas = 0;
     carta_selecionada = null;
     indice_carta_selecionada = null;
