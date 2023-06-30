@@ -35,13 +35,13 @@ function Navigation({email}){
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/home">Home</Nav.Link>
-                        <Nav.Link href="">Deck Manager</Nav.Link>
-                        <Nav.Link href="/collection">Collection</Nav.Link>
-                        <Nav.Link href="/account">Account</Nav.Link>
+                        <Nav.Link onClick={() => navigate("/home")}>Home</Nav.Link>
+                        <Nav.Link>Deck Manager</Nav.Link>
+                        <Nav.Link>Collection</Nav.Link>
+                        <Nav.Link>Account</Nav.Link>
                         <NavDropdown title="Play Game" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="/game">Easy</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">
+                        <NavDropdown.Item onClick={() => navigate("/game")}>Easy</NavDropdown.Item>
+                        <NavDropdown.Item>
                             Hard[NotImplemented]
                         </NavDropdown.Item>
                         <NavDropdown.Divider />
