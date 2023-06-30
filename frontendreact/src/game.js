@@ -444,7 +444,6 @@ export default function Board() {
                   <p>
                       --PLACEHOLDER REWARD--
                   </p>
-                  <img src=""></img>
                   <div className="d-grid gap-2">
                     <button variant="success" onClick={() => handleNavigate("/home")}>OK</button>
                   </div>
