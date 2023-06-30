@@ -11,7 +11,7 @@ function Home(){
     const [name, setName] = useState(null)
     const [email, setEmail] = useState(null)
 
-    fetch('https://trabalhoweb.margot.m.baisch.vms.ufsc.br:5000/api/users/auth',{
+    fetch('https://tripletriadapi.onrender.com/api/users/auth',{
         method: 'POST',
         mode: 'cors',
         credentials: "include",
