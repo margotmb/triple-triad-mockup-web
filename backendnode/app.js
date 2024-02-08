@@ -20,7 +20,7 @@ app.use(cors({
 //ConnectDB
 const mongoose = require("mongoose");
 mongoose.connect(
-    process.env.MONGODB_URI = "mongodb+srv://margotmb:yWJNohfPTApjKxkO@tripletriad.6dyldmh.mongodb.net/", 
+    process.env.MONGODB_URI = "", 
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
