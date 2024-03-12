@@ -2,11 +2,15 @@ const express = require('express');
 const router = express.Router();
 
 // Load Card model
-const Card = require('../../models/Card');
+const Card = require('../models/Card');
 
-router.get('/test', (req, res) => res.send('book route testing!'));
-// @route GET api/books
-// @description Get all books
+// @route GET test
+// @description Get test route
+// @access Public
+router.get('/test', (req, res) => res.send('card route testing!'));
+
+// @route GET cards
+// @description Get all cards
 // @access Public
 router.get('/', (req, res) => {
   Card.find()
@@ -14,8 +18,8 @@ router.get('/', (req, res) => {
     .catch(err => res.status(404).json({ nocardsfound: 'No Cards found' }));
 });
 
-// @route GET api/books/:id
-// @description Get single book by id
+// @route GET cards/:id
+// @description Get single card by db_id
 // @access Public
 router.get('/:id', (req, res) => {
   Card.findById(req.params.id)
@@ -23,15 +27,17 @@ router.get('/:id', (req, res) => {
     .catch(err => res.status(404).json({ nocardfound: 'No Card found' }));
 });
 
+// @route GET cards/:card_id
+// @description Get single card by card_id
+// @access Public
 router.get('/:card_id', (req, res) => {
     Card.findById(req.params.card_id)
       .then(card => res.json(card))
       .catch(err => res.status(404).json({ nocardfound: 'No Card found' }));
   });
   
-
-// @route GET api/books
-// @description add/save book
+// @route POST cards
+// @description add/save card to DB
 // @access Public
 router.post('/', (req, res) => {
   Card.create(req.body)
@@ -39,9 +45,11 @@ router.post('/', (req, res) => {
     .catch(err => res.status(400).json({ error: 'Unable to add this card' }));
 });
 
-// @route GET api/books/:id
+// @route PUT
 // @description Update book
 // @access Public
+// Update Card 
+/*
 router.put('/:id', (req, res) => {
   Card.findByIdAndUpdate(req.params.id, req.body)
     .then(card => res.json({ msg: 'Updated successfully' }))
@@ -49,14 +57,15 @@ router.put('/:id', (req, res) => {
       res.status(400).json({ error: 'Unable to update the Database' })
     );
 });
+*/
 
-// @route GET api/books/:id
+// @route DELETE cards/:id
 // @description Delete book by id
 // @access Public
 router.delete('/:id', (req, res) => {
-  Book.findByIdAndRemove(req.params.id, req.body)
-    .then(book => res.json({ mgs: 'Book entry deleted successfully' }))
-    .catch(err => res.status(404).json({ error: 'No such a book' }));
+  Card.findByIdAndRemove(req.params.id, req.body)
+    .then(book => res.json({ mgs: 'Card entry deleted successfully' }))
+    .catch(err => res.status(404).json({ error: 'Card not found' }));
 });
 
 module.exports = router;

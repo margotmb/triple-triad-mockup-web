@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../../models/User');
+const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
 function generateAccessToken(email) {
   return jwt.sign(email, "shhh", { expiresIn: '1800s' });
 }
 
-// @route GET api/users
+// @route GET users
 // @description Get all users
 router.get('/', (req, res) => {
   User.find()
@@ -15,22 +15,25 @@ router.get('/', (req, res) => {
     .catch(err => res.status(404).json({ nousersfound: 'No Users found' }));
 });
 
-// @route GET api/users/id/:id
+// @route GET users/:id
 // @description Get single user by id
-router.get('/id/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   User.findById(req.params.id)
     .then(user => res.json(user))
     .catch(err => res.status(404).json({ nouserfound: 'No User found' }));
 });
 
-router.get('/email/:email', (req, res) => {
+// @route GET user_email/:email
+// @description Get single user by id
+
+router.get('/user_email/:email', (req, res) => {
   User.findOne({email: req.params.email})
     .then(user => res.json(user))
     .catch(err => res.status(404).json({ nouserfound: 'No User found with email' }));
   });
   
 
-// @route POST api/users
+// @route POST users
 // @description add/save user
 router.post('/', (req, res) => {
   User.create(req.body)
@@ -51,7 +54,7 @@ router.put('/:id', (req, res) => {
 // @route DELETE api/users/id/:id
 // @description Delete user by id
 // @access Public
-router.delete('/id/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   User.findByIdAndRemove(req.params.id, req.body)
     .then(user => res.json({ mgs: 'User entry deleted successfully' }))
     .catch(err => res.status(404).json({ error: 'No such a user' }));
@@ -83,6 +86,8 @@ router.post('/login', (req,res) => {
 })
 
 // @route LOGOUT
+// Needs Cleanup
+/*
 router.post('/logout',(req,res) => {
   const token = req.body.token;
   if (!token) {
@@ -105,8 +110,9 @@ router.post('/logout',(req,res) => {
 	}
   res.status(200).end()
   });
-
+*/
 // @route get auth
+// Cleanup Required
 router.post('/auth', (req, res) => {
   const token = req.body.token;
   if (!token) {
