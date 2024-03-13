@@ -1,6 +1,6 @@
 Mockup of Triple Triad from the Final Fantasy Series
 
-Current state: Undergoing refactoring and re-writing.
+-> Current state: Undergoing refactoring and re-writing.
 
 Features:
 - Basic AI for matches
