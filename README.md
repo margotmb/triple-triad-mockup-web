@@ -10,8 +10,7 @@ Features:
 - Collection of Cards (Not Implemented)
 
 
-
-Final Fantasy and Triple Triad are trademarks from Square Enix Co., Ltd., and Square Enix, Inc.
+FINAL FANTASY and Triple Triad are registered trademarks of Square Enix Holdings Co., Ltd.
 
 This project is for learning purposes only and non-commercial use.
 
