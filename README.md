@@ -1,8 +1,12 @@
-Mockup Triple Triad
+Mockup of Triple Triad from the Final Fantasy Series
 
 Features:
-- Partidas contra IA (Básica)
-- Login e permanência de dados através de criação de uma conta
-- Banco de Dados NoSQL MongoDB
-- Sistema de Recompensas e de Troca (Não Implementado)
-- Biblioteca de Cartas Adquiridas (Não Implementado)
+- Basic AI for matches
+- Login and account creation
+- NoSQL MongoDB
+- Rewards for Wins, Trading System (Not Implemented)
+- Collection of Cards (Not Implemented)
+
+Final Fantasy and Triple Triad are trademarks from Square Enix Co., Ltd., and Square Enix, Inc.
+Project for learning purposes and non-commercial use.
+https://support.na.square-enix.com/rule.php?id=5382&la=1&tag=authc
