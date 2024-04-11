@@ -1,4 +1,4 @@
-Mockup of Triple Triad from the Final Fantasy Series
+Mockup of the Triple Triad Card Game from the Final Fantasy Series
 
 -> Current state: Undergoing refactoring and re-writing.
 
