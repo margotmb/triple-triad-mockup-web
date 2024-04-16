@@ -4,14 +4,15 @@ import Navigation from "./navbar";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 
+// ToDo
 // Review if universal-cookie is needed
 // Express has session middleware
+// Test new format of useState
 function Home() {
   const cookies = new Cookies();
   const navigate = useNavigate();
   var token = cookies.get("token");
-  const [name, setName] = useState(null);
-  const [email, setEmail] = useState(null);
+  const [userData, setUserData] = useState({ name: "None", email: "None" });
 
   fetch("/api/users/auth", {
     method: "POST",
@@ -24,16 +25,15 @@ function Home() {
   })
     .then((user) => user.json())
     .then((user) => {
-      setName(user.name);
-      setEmail(user.email);
+      setUserData({ ...userData, name: user.name, email: user.email });
     });
 
   return (
     <React.Fragment>
-      <Navigation email={email} />
+      <Navigation email={userData.email} />
       <div className="main-window">
         <h2>
-          Welcome, <u>{name}</u>
+          Welcome, <u>{userData.name}</u>
         </h2>
         <img
           className="title_login"
