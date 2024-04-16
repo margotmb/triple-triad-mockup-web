@@ -11,7 +11,7 @@ function Navigation({email}){
     var token = cookies.get("token");
     const handleSubmit = async e => {
         
-        fetch('https://tripletriadapi.onrender.com/api/users/logout', {
+        fetch('/api/users/logout', {
         method: 'POST',
         mode: 'cors',
         credentials: "include",
