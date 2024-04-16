@@ -17,7 +17,7 @@ function Login(){
     const [password, setPassword] = useState();
     const handleSubmit = async e => {
 
-        fetch('https://tripletriadapi.onrender.com/api/users/login', {
+        fetch('', {
             method: 'POST',
             mode: 'cors',
             credentials: "include",
