@@ -12,9 +12,15 @@ router.post('/login', (req,res) => {
         else{
             //Create Session 
             req.session.email = req.body.email;
-            console.log(user)
-            console.log(req.session.email)
-            res.send("OK")
+            req.session.save(err => {
+                if(err){
+                    res.send(err);
+                } else {
+                    res.send("OK")
+                }})
+            //console.log(user)
+            //console.log(req.session.email)
+            //res.send("OK")
         }
 
     })
