@@ -9,9 +9,10 @@ function Navigation({email}){
     const cookies = new Cookies();
     const navigate = useNavigate()
     var token = cookies.get("token");
+    const api_url = process.env.REACT_APP_API_URL + "/users/logout"
     const handleSubmit = async e => {
         
-        fetch('/api/users/logout', {
+        fetch(api_url, {
         method: 'POST',
         mode: 'cors',
         credentials: "include",

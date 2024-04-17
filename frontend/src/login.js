@@ -2,22 +2,23 @@ import React, { useState, useEffect } from "react";
 import "./styles/login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
 
-// Refactor if universal-cookie is needed
-// Express already has session middleware
+
 function Login() {
-  const cookies = new Cookies();
   const navigate = useNavigate();
+  /* Create UseEffect to deal with logged user
   useEffect(() => {
     if (cookies.get("token") != undefined) {
       navigate("/home");
     }
   });
+  */
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const api_url = process.env.REACT_APP_API_URL + "/login"
+
   const handleSubmit = async (e) => {
-    fetch("", {
+    fetch(api_url, {
       method: "POST",
       mode: "cors",
       credentials: "include",
