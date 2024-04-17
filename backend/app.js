@@ -3,7 +3,9 @@ const cors = require('cors');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const app = express();
+const dotenv = require('dotenv')
 
+dotenv.config()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
@@ -11,7 +13,7 @@ app.use(cors())
 //ConnectDB
 const mongoose = require("mongoose");
 mongoose.connect(
-    process.env.MONGODB_URI = "", 
+    process.env.MONGODB_URI, 
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -19,9 +21,10 @@ mongoose.connect(
     },
     console.log("CONNECTED")
 );
+
 // Sessions Middleware Configuration
 const store = new MongoDBStore({
-    uri: '',
+    uri: process.env.MONGODB_URI,
     collection: 'sessions'
   });
 
@@ -33,11 +36,11 @@ app.use(session({
     store: store
 }));
 
-//PORT SET
-var port = 5000;
+// PORT SET
+var port = process.env.PORT;
 module.exports = app;
 
-// routes
+// Routes
 const cards = require('./routes/cards');
 const users = require('./routes/users');
 const sessions = require('./routes/sessions');
