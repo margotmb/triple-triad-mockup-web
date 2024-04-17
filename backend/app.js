@@ -1,10 +1,11 @@
+//Imports
 const express = require("express");
 const cors = require('cors');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
-const app = express();
 const dotenv = require('dotenv')
 
+const app = express();
 dotenv.config()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,7 +30,8 @@ const store = new MongoDBStore({
   });
 
 app.use(session({
-    secret: '',
+    secret: process.env.SESSIONSECRET,
+    name : 'sessionId',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: true },
@@ -40,7 +42,7 @@ app.use(session({
 var port = process.env.PORT;
 module.exports = app;
 
-// Routes
+// Routes w/ Express Routers
 const cards = require('./routes/cards');
 const users = require('./routes/users');
 const sessions = require('./routes/sessions');
