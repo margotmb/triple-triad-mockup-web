@@ -3,7 +3,8 @@ import "./styles/login.css";
 import { useNavigate } from "react-router-dom";
 import Navigation from "./navbar";
 
-
+// Module to change account information
+// Needs revision
 
 function Account() {
     const navigate = useNavigate()
@@ -11,7 +12,7 @@ function Account() {
     var email_upd;
     var password_upd;
     useEffect(() => { 
-        fetch('https://tripletriadapi.onrender.com/api/users/auth',{
+        fetch('/api/users/auth',{
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -32,7 +33,7 @@ function Account() {
 
     const handleSubmit = async e => {
 
-        fetch('https://tripletriadapi.onrender.com/api/users/', {
+        fetch('/api/users/', {
             method: 'POST',
             credentials: 'include',
             headers: {
