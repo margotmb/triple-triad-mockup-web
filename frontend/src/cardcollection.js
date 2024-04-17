@@ -2,18 +2,7 @@ import React, { useState } from "react";
 import Navigation from "./navbar";
 import "./home.css";
 
-/* IMPLEMENTAR QUERY INDIVIDUAL DE COLEÇÃO DO USUARIO -> Pós Login
-const request = new XMLHttpRequest();
-request.open('GET', '/api/cards/', false);  // `false` makes the request synchronous
-request.send(null);
-if (request.status !== 200) {
-  console.log(request.status);
-}
-
-const req = JSON.parse(request.responseText);
-*/
-/*
-*/
+// Query User Collection - To Be Implemented
 function Card({carta}){
     if (carta != null){
         return(
