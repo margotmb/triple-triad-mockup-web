@@ -18,7 +18,7 @@ mongoose.connect(
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        dbName: 'triple-triad',
+        dbName: 'tripletriad',
     },
     console.log("CONNECTED")
 );
@@ -26,14 +26,14 @@ mongoose.connect(
 // Sessions Middleware Configuration
 const store = new MongoDBStore({
     uri: process.env.MONGODB_URI,
+    databaseName: 'tripletriad',
     collection: 'sessions'
   });
 
 app.use(session({
     secret: process.env.SESSIONSECRET,
-    name : 'sessionId',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { secure: true },
     store: store
 }));
@@ -52,6 +52,10 @@ app.use('/cards', cards);
 app.use('/users', users);
 
 app.use('/sessions', sessions);
+
+app.get('/', (req, res) => {
+    res.send('HomeRoute')
+  })
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
