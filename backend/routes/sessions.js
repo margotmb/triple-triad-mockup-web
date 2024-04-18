@@ -12,6 +12,7 @@ router.post('/login', (req,res) => {
         else{
             //Create Session 
             req.session.email = req.body.email;
+            req.session.user = user.name
             req.session.save(err => {
                 if(err){
                     res.send(err);
@@ -25,5 +26,12 @@ router.post('/login', (req,res) => {
 
     })
   })
-
+router.get('/auth', (req,res) => {
+    if (req.session.email == null){
+        res.send("Error");
+    }
+    else{
+        res.json({email: req.session.email, user: req.session.user})
+    }
+})
 module.exports = router;
