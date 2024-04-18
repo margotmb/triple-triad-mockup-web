@@ -1,33 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles/home.css";
 import Navigation from "./navbar";
-import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 
 // ToDo
-// Review if universal-cookie is needed
-// Express has session middleware
 // Test new format of useState
 function Home() {
-  const cookies = new Cookies();
   const navigate = useNavigate();
-  var token = cookies.get("token");
   const [userData, setUserData] = useState({ name: "None", email: "None" });
+  useEffect( () => {
+    fetch("/sessions/auth", {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"})
+      .then((user) => user.json())
+      .then((user) => {
+        setUserData({ ...userData, name: user.name, email: user.email });
+      });
 
-  fetch("/api/users/auth", {
-    method: "POST",
-    mode: "cors",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ token: token }),
   })
-    .then((user) => user.json())
-    .then((user) => {
-      setUserData({ ...userData, name: user.name, email: user.email });
-    });
 
+  console.log(userData)
   return (
     <React.Fragment>
       <Navigation email={userData.email} />
