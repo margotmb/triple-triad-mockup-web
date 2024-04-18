@@ -6,10 +6,15 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const dotenv = require('dotenv')
 
 const app = express();
+
+//Set Origins
+var corsOptions = {
+  origin: process.env.CORSORIGIN,
+  credentials: true };
 dotenv.config()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors())
+app.use(cors(corsOptions))
 
 //ConnectDB
 const mongoose = require("mongoose");
