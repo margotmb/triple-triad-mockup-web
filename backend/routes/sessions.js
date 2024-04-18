@@ -13,6 +13,7 @@ router.post('/login', (req,res) => {
             //Create Session 
             req.session.email = req.body.email;
             req.session.user = user.name
+            req.session.role = user.role
             req.session.save(err => {
                 if(err){
                     res.send(err);
