@@ -20,23 +20,31 @@ router.get('/', (req, res) => {
 
 // @route GET cards/:id
 // @description Get single card by db_id
-// @access Public
+// @access Public -> Add permissions
+
 router.get('/:id', (req, res) => {
   Card.findById(req.params.id)
     .then(card => res.json(card))
     .catch(err => res.status(404).json({ nocardfound: 'No Card found' }));
 });
 
-// @route GET cards/:card_id
+// @route GET cards/collection/:card_id
 // @description Get single card by card_id
-// @access Public
-router.get('/:card_id', (req, res) => {
-    Card.findById(req.params.card_id)
-      .then(card => res.json(card))
-      .catch(err => res.status(404).json({ nocardfound: 'No Card found' }));
+// @access Public -> Add permissions
+
+router.get('/collection/:card_id', (req, res) => {
+    Card.findOne({card_id: req.params.card_id})
+      .then(card => {
+        if (card === null){
+          res.status(404).json({ nocardfound: 'No Card found' })
+        }
+        else{
+          res.json(card)
+        }
+      })
   });
   
-// @route POST cards
+// @route POST cards - ToDo
 // @description add/save card to DB
 // @access Public
 router.post('/', (req, res) => {
@@ -45,7 +53,7 @@ router.post('/', (req, res) => {
     .catch(err => res.status(400).json({ error: 'Unable to add this card' }));
 });
 
-// @route PUT
+// @route PUT - ToDo
 // @description Update book
 // @access Public
 // Update Card 
@@ -59,13 +67,14 @@ router.put('/:id', (req, res) => {
 });
 */
 
-// @route DELETE cards/:id
-// @description Delete book by id
+// @route DELETE cards/:id - ToDo
+// @description Delete card by id
 // @access Public
+/*
 router.delete('/:id', (req, res) => {
   Card.findByIdAndRemove(req.params.id, req.body)
-    .then(book => res.json({ mgs: 'Card entry deleted successfully' }))
+    .then(card => res.json({ mgs: 'Card entry deleted successfully' }))
     .catch(err => res.status(404).json({ error: 'Card not found' }));
 });
-
+*/
 module.exports = router;
