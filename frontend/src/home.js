@@ -8,19 +8,17 @@ import { useNavigate } from "react-router-dom";
 function Home() {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({ name: "None", email: "None" });
-  useEffect( () => {
-    fetch("/sessions/auth", {
-      method: "GET",
-      mode: "cors",
-      credentials: "include"})
-      .then((user) => user.json())
-      .then((user) => {
-        setUserData({ ...userData, name: user.name, email: user.email });
-      });
-
-  })
-
-  console.log(userData)
+  /*
+  fetch(process.env.REACT_APP_API_URL + "/sessions/auth", {
+    method: "GET",
+    mode: "cors",
+    credentials: "include"})
+    .then((user) => user.json())
+    .then((user) => {
+      setUserData({ ...userData, name: user.name, email: user.email });
+    });
+  */
+  console.log(userData);
   return (
     <React.Fragment>
       <Navigation email={userData.email} />
