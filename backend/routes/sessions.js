@@ -13,16 +13,7 @@ router.post("/login", (req, res) => {
       req.session.email = req.body.email;
       req.session.user = user.name;
       req.session.role = user.role;
-      req.session.save((err) => {
-        if (err) {
-          res.send(err);
-        } else {
-          res.send({ response: "ok" });
-        }
-      });
-      //console.log(user)
-      //console.log(req.session.email)
-      //res.send("OK")
+      res.send(req.session.sessionID);
     }
   });
 });

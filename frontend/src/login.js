@@ -46,23 +46,15 @@ function Login() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: email.current, password: password.current }),
-      })
-        .then((data) => data.json())
-        .then((user) => {
-          if (user.response == "ok") {
-            
-            fetch(process.env.REACT_APP_API_URL + "/cards", {
-              method:"GET",
-              mode:"cors",
-              credentials:"include"
-              
-            })
-            navigate("/home");
-          } else {
-            alert("Incorrect Email or Password / User does not exist");
-          }
-        });
+        body: JSON.stringify({
+          email: email.current,
+          password: password.current,
+        }),
+      }).then((data) => {
+        console.log(data);
+        data.json();
+      });
+
       e.preventDefault();
     } else {
       console.log("email or password empty");

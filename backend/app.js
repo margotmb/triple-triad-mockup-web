@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 var corsOptions = {
   origin: process.env.CORS_ORIGIN,
   credentials: true,
+  sameSite: "none",
 };
 app.use(cors(corsOptions));
 
@@ -29,13 +30,13 @@ mongoose.connect(
 );
 
 // Express-Session Config
+// set cookie secure true for prod/https
 app.use(
   session({
     secret: process.env.SESSIONSECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { httpOnly: true, secure: false },
-    store: store,
+    cookie: { secure: false },
   }),
 );
 
