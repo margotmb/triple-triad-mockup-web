@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 // Test new format of useState
 function Home() {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState({ name: "None", email: "None" });
+  const user = useRef("");
+  const email = useRef("");
   /*
   fetch(process.env.REACT_APP_API_URL + "/sessions/auth", {
     method: "GET",
@@ -18,13 +19,12 @@ function Home() {
       setUserData({ ...userData, name: user.name, email: user.email });
     });
   */
-  console.log(userData);
   return (
     <React.Fragment>
-      <Navigation email={userData.email} />
+      <Navigation email={user.current} />
       <div className="main-window">
         <h2>
-          Welcome, <u>{userData.name}</u>
+          Welcome, <u>{email.current}</u>
         </h2>
         <img
           className="title_login"
