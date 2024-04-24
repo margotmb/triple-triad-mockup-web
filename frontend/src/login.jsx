@@ -63,7 +63,7 @@ function Login() {
       })
       e.preventDefault();
     } else {
-      console.log("email or password empty");
+      console.log("Email or password empty");
     }
   };
 
