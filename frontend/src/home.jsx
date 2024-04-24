@@ -3,12 +3,11 @@ import "./styles/home.css";
 import Navigation from "./navbar";
 import { useNavigate } from "react-router-dom";
 
-// ToDo
-// Test new format of useState
 function Home() {
   const navigate = useNavigate();
   const user = useRef("");
   const email = useRef("");
+
   /*
   fetch(process.env.REACT_APP_API_URL + "/sessions/auth", {
     method: "GET",
