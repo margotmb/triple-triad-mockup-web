@@ -13,12 +13,19 @@ router.post("/login", (req, res) => {
       req.session.email = req.body.email;
       req.session.user = user.name;
       req.session.role = user.role;
-      res.send(req.session.sessionID);
+      res.send({email: req.session.email, user: req.session.user});
     }
   });
 });
 router.get("/auth", (req, res) => {
   console.log(req.session);
+  User.findOne({ email: req.session.email }).then((user) => {
+    if (user == null) {
+      res.send({ user: null });
+    } else {
+      res.send({ email: user.email, user: user.name, role: user.role });
+    }
+  });
   /*
   if (req.session.email == null) {
     res.send({ user: null });
