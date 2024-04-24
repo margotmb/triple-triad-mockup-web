@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
-  const api_url_auth = process.env.REACT_APP_API_URL + "/sessions/auth";
+  const api_url_auth = import.meta.env.VITE_API_URL + "/sessions/auth";
   // Checks if user is already logged in, then moves to /home if yes
   const fetchPromise = fetch(api_url_auth, {
     method: "GET",
@@ -35,7 +35,7 @@ function Login() {
   // Login Form
   const email = useRef("");
   const password = useRef("");
-  const api_url_login = process.env.REACT_APP_API_URL + "/sessions/login";
+  const api_url_login = import.meta.env.VITE_API_URL + "/sessions/login";
 
   const handleSubmit = async (e) => {
     if (email != "" && password != "") {

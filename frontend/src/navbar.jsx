@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap"
 import { useNavigate } from "react-router-dom";
-import Cookies from 'universal-cookie';
-
 
 
 function Navigation({email}){
     const cookies = new Cookies();
-    const navigate = useNavigate()
-    var token = cookies.get("token");
     const api_url = process.env.REACT_APP_API_URL + "/users/logout"
     const handleSubmit = async e => {
         
