@@ -39,5 +39,10 @@ router.get("/auth", (req, res) => {
     }); 
   }*/
 });
+router.get("/logout", (req, res) => {
+  req.session.destroy()
+  res.clearCookie('connect.sid')
+  res.end()
+})
 
 module.exports = router;
