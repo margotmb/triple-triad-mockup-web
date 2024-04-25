@@ -18,8 +18,13 @@ function Home() {
           jsonPromise.then((data) => {
               console.log("Successful request, parsed json body", data);
               // Checks if user exists from GET
-              setUserData(data)
-              console.log(userData)
+              if (data.user == null){
+                navigate("/")
+              }
+              else{
+                setUserData(data)
+                console.log(userData)
+              }
           });
       }
     })
