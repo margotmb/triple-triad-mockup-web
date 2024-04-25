@@ -5,27 +5,18 @@ import { useNavigate } from "react-router-dom";
 
 function Navigation({email}){
     const navigate = useNavigate()
-    /* Function for Logout
-    const api_url = process.env.REACT_APP_API_URL + "/users/logout"
-    const handleSubmit = async e => {
+    //Function for Logout
+    const handleLogout = async () => {
         
-        fetch(api_url, {
-        method: 'POST',
+        fetch(import.meta.env.VITE_API_URL + "/sessions/logout", {
+        method: 'GET',
         mode: 'cors',
         credentials: "include",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({"token" : token})
         })
-        .then(response => {
-            cookies.remove("token", {sameSite: 'lax'});
+        .then(() => {
             navigate("/");
-            }
-        )
-        e.preventDefault();
+        })
     }
-    */
     async function handleNavigate(path){
         await navigate(path);
     }
@@ -56,7 +47,7 @@ function Navigation({email}){
                     </Nav>
                     <Nav className="ms-auto">
                         <Nav.Link >{email}</Nav.Link>
-                        <button className="btn btn-primary" >
+                        <button className="btn btn-primary" onClick={() => handleLogout()} >
                         Log off
                         </button>
                     </Nav>
