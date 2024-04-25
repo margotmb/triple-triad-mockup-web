@@ -1,38 +1,30 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import "./styles/login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
-  // Checks if user is already logged in, then moves to /home if yes
-  const fetchPromise = fetch(import.meta.env.VITE_API_URL + "/sessions/auth", {
-    method: "GET",
-    mode: "cors",
-    credentials: "include",
-  });
-
-  fetchPromise.then((response) => {
-    if (response.status === 200) {
-      const jsonPromise = response.json();
-      jsonPromise
-        .then((data) => {
+  // Checks for logged user
+  useEffect(() => {
+    fetch(import.meta.env.VITE_API_URL + "/sessions/auth", {
+      method: "GET",
+      mode: "cors",
+      credentials: "include",
+    }).then((response) => {
+      if (response.status === 200){
+        response.json().then((data) => {
           console.log("Successful request, parsed json body", data);
           // Checks if user exists from GET
           if (data.user != null){
             navigate("/home");
           }
-        })
-        .catch((error) => {
-          console.log(
-            "Successful request, Could not parse body as json",
-            error,
-          );
+        }).catch((error) => {
+          console.log("Successful request, Could not parse body as json",error);
         });
-    } else {
-      console.log("Request not successful");
-    }
-  });
+      }
+    });
+  }, [])
   
   // Login Form
   const email = useRef("");
@@ -67,14 +59,6 @@ function Login() {
     }
   };
 
-  const handleAuth = async (e) => {
-    fetch(import.meta.env.VITE_API_URL + "/sessions/auth", {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-    })
-
-  }
   return (
     <React.Fragment>
       <img className="title_login" src="https://i.imgur.com/T3ybYPx.png"></img>
@@ -119,16 +103,6 @@ function Login() {
             </div>
           </div>
         </form>
-      </div>
-      <div className="Auth-form-container">
-        <div className="d-grid gap-2 mt-3">
-          <button
-            onClick={handleAuth}
-            className="btn btn-primary"
-          >
-            Test AUTH Route
-          </button>
-        </div>
       </div>
     </React.Fragment>
   );
