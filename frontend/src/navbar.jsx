@@ -3,7 +3,7 @@ import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap"
 import { useNavigate } from "react-router-dom";
 
 
-function Navigation({username}){
+function Navigation({email}){
     const navigate = useNavigate()
     /* Function for Logout
     const api_url = process.env.REACT_APP_API_URL + "/users/logout"
@@ -55,7 +55,7 @@ function Navigation({username}){
                         
                     </Nav>
                     <Nav className="ms-auto">
-                        <Nav.Link >{username}</Nav.Link>
+                        <Nav.Link >{email}</Nav.Link>
                         <button className="btn btn-primary" >
                         Log off
                         </button>

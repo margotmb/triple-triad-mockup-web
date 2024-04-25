@@ -29,10 +29,10 @@ function Home() {
 
   return (
     <React.Fragment>
-      <Navigation email={userData.user} />
+      <Navigation email={userData.email} />
       <div className="main-window">
         <h2>
-          Welcome, <u>{userData.email}</u>
+          Welcome, <u>{userData.user}</u>
         </h2>
         <img
           className="title_login"
