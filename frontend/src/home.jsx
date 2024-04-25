@@ -4,26 +4,35 @@ import Navigation from "./navbar";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-  const navigate = useNavigate();
-  const user = useRef("");
-  const email = useRef("");
+  const [userData, setUserData] = useState([])
 
-  /*
-  fetch(process.env.REACT_APP_API_URL + "/sessions/auth", {
-    method: "GET",
-    mode: "cors",
-    credentials: "include"})
-    .then((user) => user.json())
-    .then((user) => {
-      setUserData({ ...userData, name: user.name, email: user.email });
+  useEffect( () => {
+    const fetchPromise = fetch(import.meta.env.VITE_API_URL + "/sessions/auth", {
+      method: "GET",
+      mode: "cors",
+      credentials: "include",
     });
-  */
+    fetchPromise.then((response) => {
+      if (response.status === 200) {
+          const jsonPromise = response.json();
+          jsonPromise.then((data) => {
+              console.log("Successful request, parsed json body", data);
+              // Checks if user exists from GET
+              setUserData(data)
+              console.log(userData)
+          });
+      }
+    })
+  },[])
+
+  const navigate = useNavigate();
+
   return (
     <React.Fragment>
-      <Navigation email={user.current} />
+      <Navigation email={userData.user} />
       <div className="main-window">
         <h2>
-          Welcome, <u>{email.current}</u>
+          Welcome, <u>{userData.email}</u>
         </h2>
         <img
           className="title_login"
