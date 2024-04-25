@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap"
 import { useNavigate } from "react-router-dom";
 
 
-function Navigation({email}){
-    const cookies = new Cookies();
+function Navigation({username}){
+    const navigate = useNavigate()
+    /* Function for Logout
     const api_url = process.env.REACT_APP_API_URL + "/users/logout"
     const handleSubmit = async e => {
         
@@ -24,6 +25,7 @@ function Navigation({email}){
         )
         e.preventDefault();
     }
+    */
     async function handleNavigate(path){
         await navigate(path);
     }
@@ -53,8 +55,8 @@ function Navigation({email}){
                         
                     </Nav>
                     <Nav className="ms-auto">
-                        <Nav.Link >{email}</Nav.Link>
-                        <button onClick={handleSubmit} className="btn btn-primary" >
+                        <Nav.Link >{username}</Nav.Link>
+                        <button className="btn btn-primary" >
                         Log off
                         </button>
                     </Nav>
